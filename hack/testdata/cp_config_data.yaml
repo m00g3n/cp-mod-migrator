@@ -1,0 +1,914 @@
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.a416537.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 5524c764-8893-4530-8eb8-feb9e6110f16
+subaccountSubdomain: poster-kyma-aws
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.a2c97fc.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 4ff699d2-e217-4cd9-b98a-cc338b735c1e
+subaccountSubdomain: api-gateway-moduletest-1-1zyph388
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.a5d5e35.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 0e6d8f33-fa69-47ef-9e05-53b7a073ea8c
+subaccountSubdomain: skywalker-dev-kyma
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.a9529e9.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 717f639b-a036-4a30-a46e-658a28aef177
+subaccountSubdomain: api-gateway-moduletest-2-5dpjpptx
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.ad3e801.kyma-stage.shoot.live.k8s-hana.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 276bc20b-43b8-49c3-b2bb-b137a4081fc1
+subaccountSubdomain: ewmka
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.b217766.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 9043b44c-e39b-4ba2-bb8b-f57532ba3865
+subaccountSubdomain: provider-dev-eu12
+tenantMode: shared
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-051e152.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: f6879852-9319-45f6-962d-827f35db8da4
+subaccountSubdomain: tp-vladi-test-hyminha1
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-1912334.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 58a49a15-fdbe-4afc-bdfa-8a3799e3fb72
+subaccountSubdomain: neo2kyma-zor52tkw
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-1a80548.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+tenantMode: shared
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-1f1f53e.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: c8d4324c-a370-44ab-a7cb-7ef318924f5e
+subaccountSubdomain: connectivity-zz41aavx
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-21d8936.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 4af53149-557f-43a6-a215-3a20636889ee
+subaccountSubdomain: ateam
+tenantMode: shared
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-23df217.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: b8f9e2fc-9eac-46bc-971d-623262db1f7f
+subaccountSubdomain: neo-security-tcdi1vkc
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-37b173a.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: c978baf7-858c-4782-b47b-a95d8bd8b491
+subaccountSubdomain: provider-perf
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-3bdc997.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 8d007310-1819-4fc4-8edd-ed8a9313742e
+subaccountSubdomain: pgolicz-3zbla09p
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-4063f06.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: d7287660-aaa0-46f9-b15e-94c0658af98f
+subaccountSubdomain: sampleapp-family-subaccount-r3v11u4z
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-4fc3fbd.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 30f15b0e-f064-4fba-8560-a2bbab1abdfb
+subaccountSubdomain: kyma-adoption
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-52e279b.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 9b6f7a6a-4da3-41a3-92ca-9147c93696db
+subaccountSubdomain: cpes-kyma-2-ww2w2489
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 7286a0e8-85b8-40ce-b397-8421cb5d436a
+subaccountSubdomain: demo-canary
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-738fbf9.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 148fd58e-bc15-44ac-8f78-edee2f031416
+subaccountSubdomain: s4sdk-k8s-kyma-q2wk189v
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-75091aa.kyma-stage.shoot.live.k8s-hana.ondemand.com
+        externalPort: 443
+    proxy:
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 2fecc3bf-ae0c-4a01-bf86-355932c9e294
+subaccountSubdomain: hanacloud
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-84c64c4.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 1d4e1cfa-5c66-461c-a884-c9ad818b43b9
+subaccountSubdomain: provider-main-eu12
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-89928cc.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 0355f316-e60b-49ea-8922-709a6dd1d4e1
+subaccountSubdomain: kymacrossconsumption-e530d087
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-883064f.kyma-stage.shoot.live.k8s-hana.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 2dbe7c5c-ed7b-44d6-96e7-8a9f504718aa
+subaccountSubdomain: kyma-consumer
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-8acdacb.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 305f8493-18e3-4e4d-9bb9-f7fc1946b047
+subaccountSubdomain: dox-dlv-poc-f7cocyht
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.c-92461c5.kyma-stage.shoot.live.k8s-hana.ondemand.com
+        externalPort: 443
+    proxy:
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: ace5dbce-9cfc-4ac0-8d84-d3e0a75dedb9
+subaccountSubdomain: mobile-kymatest1
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-968d92e.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: e73c8724-74fe-400f-a3d4-eb7034c65caa
+subaccountSubdomain: cp-migration-zpmid57d
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c-9bf5779.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: eec78b2c-f551-4c34-84ef-efd6dad9dc15
+subaccountSubdomain: ag-cp-mod-5stm6hz3
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.c9f42d1.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: ed9bcab7-9f80-4f19-a375-8ca39a16f3a3
+subaccountSubdomain: naas4cloud
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.e60c7c6.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 963f7ad8-5d6e-4430-8c87-00e2b253aecd
+subaccountSubdomain: refapps-kyma-91ei8jq8
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.e6f618a.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 1aa567ed-0ec4-490a-8dbf-a22fd0d9d713
+subaccountSubdomain: ag-new-cluster-with-cp-2-9-3-2-14f7h4dn
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.ed22aac.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 49778ffe-cca0-43ac-af1b-9b785125d331
+subaccountSubdomain: td-pg1-yw2uole4
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.f5cece4.kyma-stage.shoot.live.k8s-hana.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 3f7dc3d9-f611-4d6a-a128-d267f1ec7e62
+subaccountSubdomain: rado-kq7wyz7f
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.f3bbb2e.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 85341fd8-076a-4d0a-8ad5-00b9efd1f47a
+subaccountSubdomain: otters-serverless-cp-6qfuutzt
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+    auditlog:
+        mode: console
+    connectivityService:
+        serviceCredentialsKey: service_key
+servers:
+    businessDataTunnel:
+        externalHost: cp.fe02caf.stage.kyma.ondemand.com
+        externalPort: 443
+    proxy:
+        authorization:
+            oauth:
+                allowedClientId: ""
+        http:
+            enableProxyAuthorization: false
+            enabled: true
+        rfcAndLdap:
+            enableProxyAuthorization: false
+            enabled: true
+        socks5:
+            enableProxyAuthorization: false
+            enabled: true
+subaccountId: 3c0edcb1-cbdc-42eb-b70f-4fc19bcb4bf8
+subaccountSubdomain: validationsubaccount
+tenantMode: dedicated
+
+---
+highAvailabilityMode: "off"
+integration:
+  auditlog:
+    mode: console
+  connectivityService:
+    serviceCredentialsKey: service_key
+servers:
+  businessDataTunnel:
+    externalHost: cp.ff33219.stage.kyma.ondemand.com
+    externalPort: 443
+  proxy:
+    http:
+      enableProxyAuthorization: false
+      enabled: true
+    rfcAndLdap:
+      enableProxyAuthorization: false
+      enabled: true
+    socks5:
+      enableProxyAuthorization: false
+      enabled: true
+subaccountId: 09871932-354c-4036-a195-988f32e08ed4
+subaccountSubdomain: ag-new-cluster-with-cp-2-9-3-1-10d1f5ai
+tenantMode: dedicated
+

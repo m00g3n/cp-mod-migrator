@@ -1,0 +1,1538 @@
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.a416537.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 5524c764-8893-4530-8eb8-feb9e6110f16
+    subaccountSubdomain: poster-kyma-aws
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-10-17T16:02:55Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.19.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "171543"
+  uid: 37a95d9a-b57c-44c4-ad53-93d79b8ae04d
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.a2c97fc.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 4ff699d2-e217-4cd9-b98a-cc338b735c1e
+    subaccountSubdomain: api-gateway-moduletest-1-1zyph388
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-12-21T08:07:01Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "47927757"
+  uid: 8af9df54-dbee-4656-98ba-ec19a4b83ce9
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.a5d5e35.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 0e6d8f33-fa69-47ef-9e05-53b7a073ea8c
+    subaccountSubdomain: skywalker-dev-kyma
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-07-10T15:37:37Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.16.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "35795817"
+  uid: c620b8ad-8131-4af2-abe9-2cba83c74a04
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.a9529e9.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 717f639b-a036-4a30-a46e-658a28aef177
+    subaccountSubdomain: api-gateway-moduletest-2-5dpjpptx
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-12-21T11:47:52Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "37466914"
+  uid: 2ec6c60c-12e1-4d6c-8167-de628790f8d8
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.ad3e801.kyma-stage.shoot.live.k8s-hana.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 276bc20b-43b8-49c3-b2bb-b137a4081fc1
+    subaccountSubdomain: ewmka
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-05-18T15:17:18Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "621217180"
+  uid: 6df9ea8b-41ed-45ec-834a-7f93de474baf
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.b217766.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 9043b44c-e39b-4ba2-bb8b-f57532ba3865
+    subaccountSubdomain: provider-dev-eu12
+    tenantMode: shared
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-04-21T09:57:48Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.13.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "166734479"
+  uid: 5cbe075a-5340-4479-bbda-83ce8b9027bf
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-051e152.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: f6879852-9319-45f6-962d-827f35db8da4
+    subaccountSubdomain: tp-vladi-test-hyminha1
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-02-20T10:04:31Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.12.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "116289690"
+  uid: 71e25338-3ed6-4249-9146-5aaf261596cd
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-1912334.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 58a49a15-fdbe-4afc-bdfa-8a3799e3fb72
+    subaccountSubdomain: neo2kyma-zor52tkw
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-06-16T12:54:46Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.15.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "13347157"
+  uid: 633ffe3e-1a54-4a26-8ebb-6193575b909b
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-1a80548.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    tenantMode: shared
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-12-13T00:18:21Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "150501516"
+  uid: 6266ac61-9948-4a1f-a37f-14d1a25a2433
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-1f1f53e.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: c8d4324c-a370-44ab-a7cb-7ef318924f5e
+    subaccountSubdomain: connectivity-zz41aavx
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-01-28T05:00:23Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "314596011"
+  uid: 4842339d-9c08-419f-aaab-17b22094f23f
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-21d8936.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 4af53149-557f-43a6-a215-3a20636889ee
+    subaccountSubdomain: ateam
+    tenantMode: shared
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-03-17T17:16:50Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.11.2
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "125400268"
+  uid: 1dc31898-00e7-437f-8d16-dc546e2fc0d7
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-23df217.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: b8f9e2fc-9eac-46bc-971d-623262db1f7f
+    subaccountSubdomain: neo-security-tcdi1vkc
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-12-12T15:16:23Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "128777858"
+  uid: 46949b8f-ef76-48af-a218-3f37db5d6f45
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-37b173a.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: c978baf7-858c-4782-b47b-a95d8bd8b491
+    subaccountSubdomain: provider-perf
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-08-18T12:38:25Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.17.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "225971143"
+  uid: cb31fc37-ac83-4d81-83c5-78d1faf86b2a
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-3bdc997.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 8d007310-1819-4fc4-8edd-ed8a9313742e
+    subaccountSubdomain: pgolicz-3zbla09p
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2024-01-13T14:22:50Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "4600625"
+  uid: bdefc0db-1477-421c-bd63-41e08c4c429d
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-4063f06.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: d7287660-aaa0-46f9-b15e-94c0658af98f
+    subaccountSubdomain: sampleapp-family-subaccount-r3v11u4z
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-03-04T13:41:50Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "328519399"
+  uid: bd3057a5-c478-4657-9c19-1124a5a400ba
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-4fc3fbd.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 30f15b0e-f064-4fba-8560-a2bbab1abdfb
+    subaccountSubdomain: kyma-adoption
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-09-19T13:07:05Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.18.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "60822"
+  uid: 69e010cb-839b-49c6-aafe-1c9800bc2f37
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-52e279b.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 9b6f7a6a-4da3-41a3-92ca-9147c93696db
+    subaccountSubdomain: cpes-kyma-2-ww2w2489
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-08-09T14:18:39Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "408426985"
+  uid: d52f4838-bd78-4ee3-9c68-73737da13ae1
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 7286a0e8-85b8-40ce-b397-8421cb5d436a
+    subaccountSubdomain: demo-canary
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+  creationTimestamp: "2022-04-21T09:07:13Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: ""
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "757645363"
+  uid: 2a2a3c06-2976-43e9-b0ba-df4520e9f61d
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-738fbf9.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 148fd58e-bc15-44ac-8f78-edee2f031416
+    subaccountSubdomain: s4sdk-k8s-kyma-q2wk189v
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-07-03T11:29:42Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.15.1
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "360308772"
+  uid: f82e5e9d-e6c0-41a2-b726-4b86c5b185bb
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-75091aa.kyma-stage.shoot.live.k8s-hana.ondemand.com
+            externalPort: 443
+        proxy:
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 2fecc3bf-ae0c-4a01-bf86-355932c9e294
+    subaccountSubdomain: hanacloud
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2022-04-08T16:46:11Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.15.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "392651309"
+  uid: fb7d2630-eab2-4c99-b4a1-07383d53b358
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-84c64c4.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 1d4e1cfa-5c66-461c-a884-c9ad818b43b9
+    subaccountSubdomain: provider-main-eu12
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-09-21T15:31:52Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.18.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "299956336"
+  uid: 7ec3616a-a309-48c4-93b1-7bddbf999a44
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-89928cc.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 0355f316-e60b-49ea-8922-709a6dd1d4e1
+    subaccountSubdomain: kymacrossconsumption-e530d087
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-06-22T10:28:47Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.15.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "98333873"
+  uid: c3ff286c-990c-46c5-9eb3-266cfb151f7a
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-883064f.kyma-stage.shoot.live.k8s-hana.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 2dbe7c5c-ed7b-44d6-96e7-8a9f504718aa
+    subaccountSubdomain: kyma-consumer
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-12-20T11:32:53Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "806091949"
+  uid: 92321473-ec75-489f-94e5-aeb550cef923
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-8acdacb.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 305f8493-18e3-4e4d-9bb9-f7fc1946b047
+    subaccountSubdomain: dox-dlv-poc-f7cocyht
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-08-04T23:32:50Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.16.1
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "37827"
+  uid: cf9c31f2-80ed-47cd-b793-3d327320119f
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.c-92461c5.kyma-stage.shoot.live.k8s-hana.ondemand.com
+            externalPort: 443
+        proxy:
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: ace5dbce-9cfc-4ac0-8d84-d3e0a75dedb9
+    subaccountSubdomain: mobile-kymatest1
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2022-05-18T10:04:13Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.15.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "604984336"
+  uid: 966ec93f-f33d-454f-901b-51a07e8789bd
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-968d92e.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: e73c8724-74fe-400f-a3d4-eb7034c65caa
+    subaccountSubdomain: cp-migration-zpmid57d
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2024-01-12T14:56:54Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "23560"
+  uid: 3f74817f-1980-4cf1-8df8-2d7c4a72d861
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c-9bf5779.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: eec78b2c-f551-4c34-84ef-efd6dad9dc15
+    subaccountSubdomain: ag-cp-mod-5stm6hz3
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-12-01T08:17:36Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "679377"
+  uid: 6e74cf2f-0b3c-4686-a0ae-50eeca368843
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.c9f42d1.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: ed9bcab7-9f80-4f19-a375-8ca39a16f3a3
+    subaccountSubdomain: naas4cloud
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-08-07T11:05:54Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.17.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "84450223"
+  uid: c60eee7c-3d36-45ce-8a50-93e588f39ab3
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.e60c7c6.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 963f7ad8-5d6e-4430-8c87-00e2b253aecd
+    subaccountSubdomain: refapps-kyma-91ei8jq8
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-08-30T10:24:57Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.17.1
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "88645845"
+  uid: aee672cd-275b-4f89-9b55-1a7b8d8a41bc
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.e6f618a.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 1aa567ed-0ec4-490a-8dbf-a22fd0d9d713
+    subaccountSubdomain: ag-new-cluster-with-cp-2-9-3-2-14f7h4dn
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2024-01-02T17:30:00Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "91863"
+  uid: 253979da-6936-4a3b-aae7-11dc7cbc2d68
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.ed22aac.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 49778ffe-cca0-43ac-af1b-9b785125d331
+    subaccountSubdomain: td-pg1-yw2uole4
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-05-22T08:44:54Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.14.1
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "167054847"
+  uid: e7d63ce2-c3c2-41c1-8369-d4a899e705aa
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.f5cece4.kyma-stage.shoot.live.k8s-hana.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 3f7dc3d9-f611-4d6a-a128-d267f1ec7e62
+    subaccountSubdomain: rado-kq7wyz7f
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-01-24T11:37:19Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.10.1
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "327470490"
+  uid: eec836fa-514a-4e2f-a681-3ef5ef915db6
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.f3bbb2e.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 85341fd8-076a-4d0a-8ad5-00b9efd1f47a
+    subaccountSubdomain: otters-serverless-cp-6qfuutzt
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-05-11T09:56:48Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.13.1
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "45592222"
+  uid: cb216f00-5fdb-429b-b6ea-e1a717d968f8
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+        auditlog:
+            mode: console
+        connectivityService:
+            serviceCredentialsKey: service_key
+    servers:
+        businessDataTunnel:
+            externalHost: cp.fe02caf.stage.kyma.ondemand.com
+            externalPort: 443
+        proxy:
+            authorization:
+                oauth:
+                    allowedClientId: ""
+            http:
+                enableProxyAuthorization: false
+                enabled: true
+            rfcAndLdap:
+                enableProxyAuthorization: false
+                enabled: true
+            socks5:
+                enableProxyAuthorization: false
+                enabled: true
+    subaccountId: 3c0edcb1-cbdc-42eb-b70f-4fc19bcb4bf8
+    subaccountSubdomain: validationsubaccount
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-06-08T07:37:00Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.14.3
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "23355069"
+  uid: c9acb566-bd22-4789-a33c-7f4dc402e3f9
+---
+apiVersion: v1
+data:
+  connectivity-proxy-config.yml: |
+    highAvailabilityMode: "off"
+    integration:
+      auditlog:
+        mode: console
+      connectivityService:
+        serviceCredentialsKey: service_key
+    servers:
+      businessDataTunnel:
+        externalHost: cp.ff33219.stage.kyma.ondemand.com
+        externalPort: 443
+      proxy:
+        http:
+          enableProxyAuthorization: false
+          enabled: true
+        rfcAndLdap:
+          enableProxyAuthorization: false
+          enabled: true
+        socks5:
+          enableProxyAuthorization: false
+          enabled: true
+    subaccountId: 09871932-354c-4036-a195-988f32e08ed4
+    subaccountSubdomain: ag-new-cluster-with-cp-2-9-3-1-10d1f5ai
+    tenantMode: dedicated
+kind: ConfigMap
+metadata:
+  annotations:
+    reconciler.kyma-project.io/managed-by-reconciler-disclaimer: |-
+      DO NOT EDIT - This resource is managed by Kyma.
+      Any modifications are discarded and the resource is reverted to the original state.
+    reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
+  creationTimestamp: "2023-12-21T08:46:52Z"
+  labels:
+    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    reconciler.kyma-project.io/managed-by: reconciler
+    reconciler.kyma-project.io/origin-version: 2.20.0
+  name: connectivity-proxy
+  namespace: kyma-system
+  resourceVersion: "22816"
+  uid: c7153234-ad64-42ce-ae12-7fb121668994
+---
