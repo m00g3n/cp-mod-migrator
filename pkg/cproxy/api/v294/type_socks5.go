@@ -4,6 +4,8 @@ import "k8s.io/apimachinery/pkg/util/json"
 
 type Socks5 ProxyCfg
 
+const DefaultPortSocks5 = 2004
+
 func (p *Socks5) UnmarshalJSON(text []byte) error {
 	var result ProxyCfg
 	if err := json.Unmarshal(text, &result); err != nil {

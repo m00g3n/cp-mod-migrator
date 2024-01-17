@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -112,6 +111,7 @@ func run(ctx context.Context, getClient getClient) error {
 
 	var cp v294.ConnectivityProxy
 	for _, f := range []extract.Function{
+		extract.SetDefaults,
 		extract.GetCPConfiguration,
 	} {
 		if err := f(ctx, &cp, k8sClient); err != nil {
@@ -119,7 +119,11 @@ func run(ctx context.Context, getClient getClient) error {
 		}
 	}
 
-	if err := json.NewEncoder(os.Stdout).Encode(&cp); err != nil {
+	slog.Info("CR created", "cr", cp)
+
+	if err := k8sClient.Create(ctx, &cp, &client.CreateOptions{
+		DryRun: []string{"All"},
+	}); err != nil {
 		return err
 	}
 

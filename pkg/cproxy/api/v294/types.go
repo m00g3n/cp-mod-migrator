@@ -24,11 +24,8 @@ const (
 type TenantMode string
 
 const (
-	TenantModeDedicated   = "dedicated"
-	TenantModeShared      = "shared"
-	DefaultPortHTTP       = 2003
-	DefaultPortRfcAndLdap = 2001
-	DefaultPortSocks5     = 2004
+	TenantModeDedicated = "dedicated"
+	TenantModeShared    = "shared"
 )
 
 type Config struct {
@@ -78,7 +75,7 @@ type ConnectivityProxy struct {
 }
 
 type MultiRegionMode struct {
-	ConfigMapName string `json:"configMapName"`
+	ConfigMapName string `json:"configMapName,omitempty"`
 	Enabled       bool   `json:"enabled"`
 }
 
@@ -113,6 +110,10 @@ type ProxyCfg struct {
 	EnableProxyAuthorization bool `json:"enableProxyAuthorization"`
 	Port                     int  `json:"port"`
 }
+
+//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name HTTP -port-number 2003
+//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name Socks5 -port-number 2004
+//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name RfcAndLdap -port-number 2001
 
 type ServiceChannels struct {
 	Enabled bool `json:"enabled"`

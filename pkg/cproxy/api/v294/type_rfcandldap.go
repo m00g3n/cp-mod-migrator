@@ -4,6 +4,8 @@ import "k8s.io/apimachinery/pkg/util/json"
 
 type RfcAndLdap ProxyCfg
 
+const DefaultPortRfcAndLdap = 2001
+
 func (p *RfcAndLdap) UnmarshalJSON(text []byte) error {
 	var result ProxyCfg
 	if err := json.Unmarshal(text, &result); err != nil {
@@ -20,7 +22,7 @@ func (p *RfcAndLdap) UnmarshalJSON(text []byte) error {
 
 func (p *RfcAndLdap) MarshalJSON() ([]byte, error) {
 	if p.Port == 0 {
-		p.Port = DefaultPortHTTP
+		p.Port = DefaultPortRfcAndLdap
 	}
 
 	proxyCfg := ProxyCfg(*p)
