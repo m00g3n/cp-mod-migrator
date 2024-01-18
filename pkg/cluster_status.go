@@ -2,9 +2,10 @@ package migration
 
 import (
 	"context"
-	"log/slog"
 
 	v293 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	appsv1 "k8s.io/api/apps/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -16,6 +17,7 @@ const (
 	StatusMigrationSkipped  Status = "SKIPPED"
 )
 
+//go:generate mockery --name=Client
 type Client interface {
 	client.Client
 }
@@ -23,11 +25,14 @@ type Client interface {
 func GetStatus(ctx context.Context, c Client) (Status, error) {
 	for _, check := range []Check{
 		Not(ModuleInstalled),
+		OldConnProxyInstalled,
 	} {
 		passed, err := check(ctx, c)
+
 		if err != nil {
 			return StatusUnknown, err
 		}
+
 		if !passed {
 			return StatusMigrationSkipped, nil
 		}
@@ -45,7 +50,20 @@ func Not(check Check) Check {
 }
 
 func OldConnProxyInstalled(ctx context.Context, c Client) (bool, error) {
-	slog.Warn("not implemented yet")
+	var cp appsv1.StatefulSet
+	err := c.Get(ctx, client.ObjectKey{
+		Namespace: "kyma-system",
+		Name:      "connectivity-proxy",
+	}, &cp)
+
+	if errors.IsNotFound(err) {
+		return false, nil
+	}
+
+	if err != nil {
+		return false, err
+	}
+
 	return true, nil
 }
 
