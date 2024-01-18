@@ -1,4 +1,4 @@
-package v294_test
+package main_test
 
 import (
 	"testing"
@@ -19,7 +19,7 @@ func TestCproxy(t *testing.T) {
 }
 
 var (
-	externalDependencyDataPath = "../../../../hack/cproxy/crd.yaml"
+	externalDependencyDataPath = "./hack/cproxy/crd.yaml"
 
 	testEnv   *envtest.Environment
 	k8sClient client.Client
