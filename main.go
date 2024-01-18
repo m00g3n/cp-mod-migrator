@@ -24,6 +24,14 @@ type config struct {
 	isDryRun       bool
 }
 
+// dryRun - returns dry run val accepted by client patch method
+func (c *config) dryRun() []string {
+	if c.isDryRun {
+		return []string{"All"}
+	}
+	return []string{}
+}
+
 func addToScheme(s *runtime.Scheme) error {
 	for _, add := range []func(s *runtime.Scheme) error{
 		v294.AddToScheme,
@@ -82,7 +90,7 @@ func logDuration(msg string, start time.Time) {
 	slog.Info(msg, arg)
 }
 
-func run(ctx context.Context, getClient getClient) error {
+func run(ctx context.Context, getClient getClient, dryRun []string) error {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 		AddSource: true,
 	}))
@@ -119,13 +127,18 @@ func run(ctx context.Context, getClient getClient) error {
 		}
 	}
 
-	slog.Info("CR created", "cr", cp)
+	data, err := cp.Encode()
+	if err != nil {
+		return err
+	}
 
 	if err := k8sClient.Create(ctx, &cp, &client.CreateOptions{
-		DryRun: []string{"All"},
+		DryRun: dryRun,
 	}); err != nil {
 		return err
 	}
+
+	slog.Info("CR created", "data", data)
 
 	return nil
 }
@@ -156,7 +169,8 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	if err := run(ctx, cfg.client); err != nil {
+	dryRun := cfg.dryRun()
+	if err := run(ctx, cfg.client, dryRun); err != nil {
 		exit1(err)
 	}
 }

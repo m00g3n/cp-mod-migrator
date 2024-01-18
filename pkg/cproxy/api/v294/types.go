@@ -1,6 +1,10 @@
 package v294
 
 import (
+	"bytes"
+	"encoding/base64"
+	"encoding/json"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/controller-runtime/pkg/scheme"
@@ -72,6 +76,16 @@ type ConnectivityProxy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              Spec `json:"spec"`
+}
+
+func (c *ConnectivityProxy) Encode() (string, error) {
+	var b bytes.Buffer
+	if err := json.NewEncoder(&b).Encode(c); err != nil {
+		return "", err
+	}
+	data := b.Bytes()
+	encode := base64.StdEncoding.EncodeToString(data)
+	return encode, nil
 }
 
 type MultiRegionMode struct {
