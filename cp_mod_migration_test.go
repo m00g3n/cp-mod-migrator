@@ -69,7 +69,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		deleteObjs(ctx, cmCopy, sSetCopy, &cr)
 	})
 
-	It("should not migrate data #1", func() {
+	It("should not migrate data when CP module is installed on a cluster", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
@@ -89,4 +89,36 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		deleteObjs(ctx, cmCopy, sSetCopy, &cr)
 	})
 
+	It("should not migrate data when non modular CP component is not installed on a cluster", func() {
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+		// create config-map with configuration
+		cmCopy := cm.DeepCopy()
+		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
+		// start migration
+		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
+		// fetch created CR
+		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
+		var cr v294.ConnectivityProxy
+		Expect(k8sClient.Get(ctx, key, &cr)).Should(MatchError(`connectivityproxies.connectivityproxy.sap.com "connectivity-proxy" not found`))
+		deleteObjs(ctx, cmCopy)
+	})
+
+	It("should not migrate when non modular CP component is corrupted (missing configuration)", func() {
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+		// create statefu-set
+		sSetCopy := sSet.DeepCopy()
+		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
+		// start migration
+		Expect(migration.Run(ctx, getK8sClient, []string{})).Should(MatchError(`configmaps "connectivity-proxy" not found`))
+		deleteObjs(ctx, sSetCopy)
+	})
+
+	It("should not migrate empty cluster", func() {
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+		// start migration
+		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
+	})
 })

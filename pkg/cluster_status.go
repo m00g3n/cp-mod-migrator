@@ -28,11 +28,9 @@ func GetStatus(ctx context.Context, c Client) (Status, error) {
 		OldConnProxyInstalled,
 	} {
 		passed, err := check(ctx, c)
-
 		if err != nil {
 			return StatusUnknown, err
 		}
-
 		if !passed {
 			return StatusMigrationSkipped, nil
 		}
@@ -55,11 +53,9 @@ func OldConnProxyInstalled(ctx context.Context, c Client) (bool, error) {
 		Namespace: "kyma-system",
 		Name:      "connectivity-proxy",
 	}, &cp)
-
 	if errors.IsNotFound(err) {
 		return false, nil
 	}
-
 	if err != nil {
 		return false, err
 	}
