@@ -7,6 +7,8 @@ import (
 	. "github.com/onsi/gomega"
 
 	v293 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/rest"
 	"k8s.io/kubectl/pkg/scheme"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -15,15 +17,22 @@ import (
 
 func TestCproxy(t *testing.T) {
 	RegisterFailHandler(Fail)
+	defer GinkgoRecover()
+
+	Expect(loadCMs(&cms)).ShouldNot(HaveOccurred(), "unable to load test data")
+	mockedClient = newClient(t, cms)
+
 	RunSpecs(t, "Cproxy Suite")
 }
 
 var (
 	externalDependencyDataPath = "./hack/cproxy/crd.yaml"
 
-	testEnv   *envtest.Environment
-	k8sClient client.Client
-	config    *rest.Config
+	testEnv      *envtest.Environment
+	k8sClient    client.Client
+	config       *rest.Config
+	mockedClient extract.Client
+	cms          []corev1.ConfigMap
 )
 
 func getK8sClient() (client.Client, error) {
