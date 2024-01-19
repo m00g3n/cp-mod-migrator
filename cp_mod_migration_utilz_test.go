@@ -81,7 +81,7 @@ func cp(name, namespace string) v294.ConnectivityProxy {
 }
 
 func loadCMs(data *[]corev1.ConfigMap) error {
-	file, err := os.Open("../../hack/testdata/configmaps.yaml")
+	file, err := os.Open("./hack/testdata/configmaps.yaml")
 	if err != nil {
 		return err
 	}

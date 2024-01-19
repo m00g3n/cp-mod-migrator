@@ -17,9 +17,10 @@ import (
 
 func TestCproxy(t *testing.T) {
 	RegisterFailHandler(Fail)
-	defer GinkgoRecover()
 
-	Expect(loadCMs(&cms)).ShouldNot(HaveOccurred(), "unable to load test data")
+	if err := loadCMs(&cms); err != nil {
+		t.Fatal(err)
+	}
 	mockedClient = newClient(t, cms)
 
 	RunSpecs(t, "Cproxy Suite")

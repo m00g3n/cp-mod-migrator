@@ -60,6 +60,10 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 			var cr v294.ConnectivityProxy
 			err := extract.GetCPConfiguration(ctx, &cr, mockedClient)
 			Expect(err).ShouldNot(HaveOccurred())
+
+			err = extract.SetDefaults(ctx, &cr, mockedClient)
+			Expect(err).ShouldNot(HaveOccurred())
+
 			Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 			deleteObjs(ctx, &cr)
 		}
