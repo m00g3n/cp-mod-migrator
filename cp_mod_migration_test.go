@@ -7,6 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
 	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	appsv1 "k8s.io/api/apps/v1"
@@ -49,6 +50,19 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		cr := cp("connectivity-proxy", ns.Name)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		Expect(k8sClient.Delete(ctx, &cr)).ShouldNot(HaveOccurred())
+	})
+
+	It("should cover all existing cases", func() {
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
+		for range cms {
+			var cr v294.ConnectivityProxy
+			err := extract.GetCPConfiguration(ctx, &cr, mockedClient)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
+			deleteObjs(ctx, &cr)
+		}
 	})
 
 	It("should migrate data", func() {
