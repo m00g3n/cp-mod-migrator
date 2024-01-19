@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: connectivity-proxy
+  namespace: kyma-system
+  labels:
+    app: connectivity-proxy
+    chart: connectivity-proxy-2.9.3
+    release: connectivity-proxy
+    heritage: Helm
+spec:
+  replicas: 1
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: connectivity-proxy
+      release: connectivity-proxy
+  serviceName: connectivity-proxy-tunnel
+  template:
+    metadata:
+      labels:
+        app: connectivity-proxy
+        release: connectivity-proxy
+    spec:
+      priorityClassName: connectivity-proxy-priority-class
+      terminationGracePeriodSeconds: 10
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - connectivity-proxy
+              topologyKey: topology.kubernetes.io/zone
+            weight: 100
+      containers:
+        - name: connectivity-proxy
+          image: test-image
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            tcpSocket:
+              port: 8042
+          livenessProbe:
+            tcpSocket:
+              port: 8042
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/bash", "-c", "sleep 20"]
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 256M
+            limits:
+              cpu: 1
+              memory: 1024M
+          env:
+          - name: START_APPLICATION
+            value: "connectivity-proxy"
+          - name: CPU_LIMIT
+            valueFrom:
+              resourceFieldRef:
+                containerName: connectivity-proxy
+                resource: limits.cpu
+                divisor: "1m"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 3000
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8042
+            timeoutSeconds: 1
+          volumeMounts:
+          - name: connectivity-proxy-config
+            mountPath: /etc/connectivity/properties/user-provided
+            readOnly: true
+          - name: connectivity-proxy-service-mappings
+            mountPath: /etc/connectivity/properties/servicemappings
+            readOnly: true
+          - name: connectivity-proxy-secrets
+            mountPath: /etc/connectivity/secrets
+            readOnly: true
+      initContainers:
+        - name: init-fd-limit
+          image: eu.gcr.io/kyma-project/external/busybox:1.32.0
+          # Check if the needed file descriptor count is avalaible on the hosting OS as a prerequisite for connectivity-proxy container start
+          command: ["sh", "-c", "ulimit -n 64000"]
+          securityContext:
+            privileged: true
+      volumes:
+        - name: connectivity-proxy-config
+          configMap:
+            name: connectivity-proxy
+        - name: connectivity-proxy-service-mappings
+          configMap:
+            name: test-cm
+        - name: connectivity-proxy-secrets
+          projected:
+            sources:
+              - secret:
+                  name: test-secret

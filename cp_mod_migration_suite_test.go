@@ -26,6 +26,10 @@ var (
 	config    *rest.Config
 )
 
+func getK8sClient() (client.Client, error) {
+	return k8sClient, nil
+}
+
 var _ = BeforeSuite(func() {
 	By("bootstrapping test environment")
 	testEnv = &envtest.Environment{

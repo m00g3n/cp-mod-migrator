@@ -11,7 +11,7 @@ func SetDefaults(ctx context.Context, cr *v294.ConnectivityProxy, _ Client) erro
 		return err
 	}
 
-	cr.Name = "default"
-	cr.Namespace = "default"
+	cr.Name = "connectivity-proxy"
+	cr.Namespace = "kyma-system"
 	return nil
 }

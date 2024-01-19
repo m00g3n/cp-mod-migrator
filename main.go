@@ -7,11 +7,9 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
-	"time"
 
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
 	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
-	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/clientcmd"
@@ -80,69 +78,6 @@ func kubeconfigPathVar(kubeconfigFlag *string) {
 	flag.StringVar(kubeconfigFlag, "kubeconfig", "", "absolute path to the kubeconfig file")
 }
 
-type getClient = func() (client.Client, error)
-
-func logDuration(msg string, start time.Time) {
-	arg := slog.Attr{
-		Key:   "duration",
-		Value: slog.AnyValue(time.Since(start)),
-	}
-	slog.Info(msg, arg)
-}
-
-func run(ctx context.Context, getClient getClient, dryRun []string) error {
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
-		AddSource: true,
-	}))
-	slog.SetDefault(logger)
-
-	start := time.Now()
-	slog.Info("started")
-	defer logDuration("finished in", start)
-
-	k8sClient, err := getClient()
-	if err != nil {
-		return err
-	}
-
-	status, err := migration.GetStatus(ctx, k8sClient)
-	if err != nil {
-		return err
-	}
-
-	if status != migration.StatusMigrationRequired {
-		slog.Info(
-			"cluster will not be migrated",
-			"migrationStatus", status,
-		)
-	}
-
-	var cp v294.ConnectivityProxy
-	for _, f := range []extract.Function{
-		extract.SetDefaults,
-		extract.GetCPConfiguration,
-	} {
-		if err := f(ctx, &cp, k8sClient); err != nil {
-			return err
-		}
-	}
-
-	data, err := cp.Encode()
-	if err != nil {
-		return err
-	}
-
-	if err := k8sClient.Create(ctx, &cp, &client.CreateOptions{
-		DryRun: dryRun,
-	}); err != nil {
-		return err
-	}
-
-	slog.Info("CR created", "data", data)
-
-	return nil
-}
-
 // newConfig - creates new application configuration base on passed flags
 func newConfig() config {
 	result := config{}
@@ -170,7 +105,7 @@ func main() {
 	defer cancel()
 
 	dryRun := cfg.dryRun()
-	if err := run(ctx, cfg.client, dryRun); err != nil {
+	if err := migration.Run(ctx, cfg.client, dryRun); err != nil {
 		exit1(err)
 	}
 }
