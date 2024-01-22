@@ -27,9 +27,10 @@ func deleteObjs(ctx context.Context, obj client.Object, objs ...client.Object) {
 var _ = Describe("cp-mod-migrator", Ordered, func() {
 
 	var (
-		ns   corev1.Namespace
-		cm   corev1.ConfigMap
-		sSet appsv1.StatefulSet
+		ns     corev1.Namespace
+		cm     corev1.ConfigMap
+		cmInfo corev1.ConfigMap
+		sSet   appsv1.StatefulSet
 	)
 
 	BeforeAll(func() {
@@ -40,6 +41,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		Expect(k8sClient.Create(ctx, &ns)).ShouldNot(HaveOccurred())
 		// read data
 		readYaml("hack/testdata/cp_cm.yaml", &cm)
+		readYaml("hack/testdata/cp_cm_info.yaml", &cmInfo)
 		readYaml("hack/testdata/cp_stateful_set.yaml", &sSet)
 	})
 
@@ -75,6 +77,9 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// create config-map with configuration
 		cmCopy := cm.DeepCopy()
 		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
+		// create config-map with proxy information
+		cmInfoCopy := cmInfo.DeepCopy()
+		Expect(k8sClient.Create(ctx, cmInfoCopy)).ShouldNot(HaveOccurred())
 		// create statefu-set
 		sSetCopy := sSet.DeepCopy()
 		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
@@ -84,7 +89,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
 		var cr v294.ConnectivityProxy
 		Expect(k8sClient.Get(ctx, key, &cr)).ShouldNot(HaveOccurred())
-		deleteObjs(ctx, cmCopy, sSetCopy, &cr)
+		deleteObjs(ctx, cmCopy, cmInfoCopy, sSetCopy, &cr)
 	})
 
 	It("should not migrate data when CP module is installed on a cluster", func() {
