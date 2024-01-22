@@ -4,7 +4,7 @@ metadata:
   annotations:
     reconciler.kyma-project.io/skip-rendering-on-upgrade: "true"
   labels:
-    connectivityproxy.sap.com/restart: connectivity-proxy.kyma-system
+    connectivityproxy.sap.com/restart: obfuscated.host
   name: connectivity-proxy
   namespace: kyma-system
 data:
@@ -29,6 +29,6 @@ data:
         socks5:
           enableProxyAuthorization: false
           enabled: true
-    subaccountId: 5524c764-8893-4530-8eb8-feb9e6110f16
-    subaccountSubdomain: test-subacc-domain
+    subaccountId: 00000000-0000-0000-0000-000000000000
+    subaccountSubdomain: obfuscated-subaccount-subdomain
     tenantMode: dedicated

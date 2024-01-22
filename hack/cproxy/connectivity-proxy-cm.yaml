@@ -9,7 +9,7 @@ data:
         serviceCredentialsKey: service_key
     servers:
       businessDataTunnel:
-        externalHost: cp.c-968d92e.stage.kyma.ondemand.com
+        externalHost: obfuscated.host
         externalPort: 443
       proxy:
         http:
@@ -21,8 +21,8 @@ data:
         socks5:
           enableProxyAuthorization: false
           enabled: true
-    subaccountId: e73c8724-74fe-400f-a3d4-eb7034c65caa
-    subaccountSubdomain: cp-migration-zpmid57d
+    subaccountId: 00000000-0000-0000-0000-000000000000
+    subaccountSubdomain: obfuscated-subaccount-subdomain
     tenantMode: dedicated
 kind: ConfigMap
 metadata:
