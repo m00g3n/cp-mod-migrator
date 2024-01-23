@@ -45,6 +45,7 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 	for _, f := range []extract.Function{
 		extract.SetDefaults,
 		extract.GetCPConfiguration,
+		extract.GetCPInfo,
 	} {
 		if err := f(ctx, &cp, k8sClient); err != nil {
 			return err

@@ -10,6 +10,7 @@ import (
 
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
 	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/clientcmd"
@@ -34,6 +35,7 @@ func addToScheme(s *runtime.Scheme) error {
 	for _, add := range []func(s *runtime.Scheme) error{
 		v294.AddToScheme,
 		corev1.AddToScheme,
+		appsv1.AddToScheme,
 	} {
 		if err := add(s); err != nil {
 			return fmt.Errorf("unable to add scheme: %s", err)

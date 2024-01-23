@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	cmKey = client.ObjectKey{
+	cmKeyCfg = client.ObjectKey{
 		Namespace: v293.CProxyCMNamespace,
 		Name:      v293.CProxyCMName,
 	}
@@ -31,7 +31,7 @@ type Function func(context.Context, *v294.ConnectivityProxy, Client) error
 
 func GetCPConfiguration(ctx context.Context, cr *v294.ConnectivityProxy, c Client) error {
 	var cm corev1.ConfigMap
-	if err := c.Get(ctx, cmKey, &cm); err != nil {
+	if err := c.Get(ctx, cmKeyCfg, &cm); err != nil {
 		return err
 	}
 
