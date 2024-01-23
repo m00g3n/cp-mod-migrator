@@ -11,6 +11,7 @@ import (
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/mocks"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -27,36 +28,41 @@ var (
 	mockArgsAny     = []interface{}{mock.Anything, mock.Anything, mock.Anything}
 )
 
-func setupClientCpCR(t *testing.T, items ...v294.ConnectivityProxy) (migration.Client, error) {
+func setupClientCpCR(t *testing.T, cp v294.ConnectivityProxy) (migration.Client, error) {
 	runFn := func(args mock.Arguments) {
-		cps := args.Get(1).(*v294.ConnectivityProxyList)
-		*cps = v294.ConnectivityProxyList{
-			Items: append([]v294.ConnectivityProxy{}, items...),
-		}
+		_cp := args.Get(2).(*v294.ConnectivityProxy)
+		*_cp = cp
 	}
 
 	mockClient := mocks.NewClient(t)
-	mockClient.On("List", mockArgsAny...).Return(nil).Run(runFn)
+	mockClient.On("Get", mockArgsAny...).Return(nil).Run(runFn)
 
 	return mockClient, nil
 }
 
 func setupClientCpCRErr(t *testing.T) error {
 	mockClient := mocks.NewClient(t)
-	mockClient.On("List", mockArgsAny...).Return(ErrNotFoundTest)
+	mockClient.On("Get", mockArgsAny...).Return(ErrNotFoundTest)
 
 	clientCpCrErr = mockClient
 	return nil
 }
 
 func setupClientCpCRFound(t *testing.T) (err error) {
-	clientCpCrFound, err = setupClientCpCR(t, v294.ConnectivityProxy{})
+	clientCpCrFound, err = setupClientCpCR(t, v294.ConnectivityProxy{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{v294.CProxyMigratedAnnotation: ""},
+		},
+	})
 	return err
 }
 
 func setupClientCpCRNotFound(t *testing.T) (err error) {
-	clientCpCrNotFound, err = setupClientCpCR(t)
-	return err
+	mockedClient := mocks.NewClient(t)
+	mockedClient.On("Get", mockArgsAny...).Return(ErrNotFoundTest)
+
+	clientCpCrNotFound = mockedClient
+	return
 }
 
 func setupClientSsNotFound(t *testing.T) (err error) {

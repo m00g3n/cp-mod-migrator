@@ -3,7 +3,7 @@ package migration
 import (
 	"context"
 
-	v293 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -22,29 +22,32 @@ type Client interface {
 	client.Client
 }
 
-func GetStatus(ctx context.Context, c Client) (Status, error) {
-	for _, check := range []Check{
-		Not(ModuleInstalled),
-		OldConnProxyInstalled,
-	} {
-		passed, err := check(ctx, c)
-		if err != nil {
-			return StatusUnknown, err
-		}
-		if !passed {
-			return StatusMigrationSkipped, nil
-		}
+func GetStatus(ctx context.Context, c Client) (Status, v294.ConnectivityProxy, error) {
+	var cp v294.ConnectivityProxy
+	// get connectivity proxy
+	key := client.ObjectKey{
+		Namespace: v294.CProxyDefaultCRNamespace,
+		Name:      v294.CProxyDefaultCRName,
 	}
-	return StatusMigrationRequired, nil
-}
-
-type Check func(context.Context, Client) (bool, error)
-
-func Not(check Check) Check {
-	return func(ctx context.Context, c Client) (bool, error) {
-		passed, err := check(ctx, c)
-		return !passed, err
+	if err := c.Get(ctx, key, &cp); err != nil {
+		return StatusUnknown, cp, err
 	}
+	// check if migration was not already performed
+	if cp.Migrated() {
+		return StatusMigrationSkipped, cp, nil
+	}
+	// check if old connectivity proxy is installed
+	installed, err := OldConnProxyInstalled(ctx, c)
+	// status unknown
+	if err != nil {
+		return StatusUnknown, cp, err
+	}
+	// migration is not required
+	if !installed {
+		return StatusMigrationSkipped, cp, nil
+	}
+	// migration is required
+	return StatusMigrationRequired, cp, nil
 }
 
 func OldConnProxyInstalled(ctx context.Context, c Client) (bool, error) {
@@ -61,15 +64,4 @@ func OldConnProxyInstalled(ctx context.Context, c Client) (bool, error) {
 	}
 
 	return true, nil
-}
-
-func ModuleInstalled(ctx context.Context, c Client) (bool, error) {
-	var cps v293.ConnectivityProxyList
-	if err := c.List(ctx, &cps); err != nil {
-		return false, err
-	}
-	if len(cps.Items) != 0 {
-		return true, nil
-	}
-	return false, nil
 }

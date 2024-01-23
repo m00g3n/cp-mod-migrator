@@ -234,10 +234,10 @@ spec:
                     - enabled
                     type: object
                 required:
-                - image
-                - utilityImage
-                - replicaCount
-                - resources
+#                - image
+#                - utilityImage
+#                - replicaCount
+#                - resources
                 type: object
               ingress:
                 properties:

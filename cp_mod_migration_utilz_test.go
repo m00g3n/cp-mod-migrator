@@ -34,15 +34,17 @@ func namespace(name string) corev1.Namespace {
 	}
 }
 
-func cp(name, namespace string) v294.ConnectivityProxy {
+func cp(name, namespace string, migrated bool) v294.ConnectivityProxy {
+	annotations := map[string]string{}
+	if migrated {
+		annotations[v294.CProxyMigratedAnnotation] = "true"
+	}
+
 	return v294.ConnectivityProxy{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: "connectivityproxy.sap.com/v1",
-			Kind:       "ConnectivityProxy",
-		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      name,
-			Namespace: namespace,
+			Name:        name,
+			Namespace:   namespace,
+			Annotations: annotations,
 		},
 		Spec: v294.Spec{
 			Config: v294.Config{
@@ -75,6 +77,18 @@ func cp(name, namespace string) v294.ConnectivityProxy {
 
 				SubaccountID: "test-me-plz",
 				TenantMode:   v294.TenantModeDedicated,
+			},
+
+			Ingress: v294.Ingress{
+				ClassName: v294.ClassTypeIstio,
+			},
+
+			SecretConfig: v294.SecretConfig{
+				Integration: v294.SecretConfigIntegration{
+					ConnectivityService: v294.ServiceSecretConfig{
+						SecretName: "test",
+					},
+				},
 			},
 		},
 	}

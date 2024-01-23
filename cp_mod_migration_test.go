@@ -49,7 +49,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 
-		cr := cp("connectivity-proxy", ns.Name)
+		cr := cp("connectivity-proxy", ns.Name, true)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		Expect(k8sClient.Delete(ctx, &cr)).ShouldNot(HaveOccurred())
 	})
@@ -83,12 +83,16 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// create statefu-set
 		sSetCopy := sSet.DeepCopy()
 		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
+		// create CR to be migrated
+		cr := cp("connectivity-proxy", ns.Name, false)
+		Expect(k8sClient.Create(ctx, cr.DeepCopy())).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
 		// fetch created CR
 		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
-		var cr v294.ConnectivityProxy
 		Expect(k8sClient.Get(ctx, key, &cr)).ShouldNot(HaveOccurred())
+		Expect(cr.Annotations).Should(HaveKeyWithValue(v294.CProxyMigratedAnnotation, ""))
+		// clean up
 		deleteObjs(ctx, cmCopy, cmInfoCopy, sSetCopy, &cr)
 	})
 
@@ -96,7 +100,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
-		cr := cp("existing-cr", ns.Name)
+		cr := cp(v294.CProxyDefaultCRName, ns.Name, true)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// create config-map with configuration
 		cmCopy := cm.DeepCopy()
@@ -106,9 +110,6 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
-		// fetch created CR
-		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
-		Expect(k8sClient.Get(ctx, key, &cr)).Should(MatchError(`connectivityproxies.connectivityproxy.sap.com "connectivity-proxy" not found`))
 		deleteObjs(ctx, cmCopy, sSetCopy, &cr)
 	})
 
@@ -118,18 +119,20 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// create config-map with configuration
 		cmCopy := cm.DeepCopy()
 		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
+		// create CR
+		cr := cp(v294.CProxyDefaultCRName, ns.Name, true)
+		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
-		// fetch created CR
-		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
-		var cr v294.ConnectivityProxy
-		Expect(k8sClient.Get(ctx, key, &cr)).Should(MatchError(`connectivityproxies.connectivityproxy.sap.com "connectivity-proxy" not found`))
-		deleteObjs(ctx, cmCopy)
+		deleteObjs(ctx, cmCopy, &cr)
 	})
 
 	It("should not migrate when non modular CP component is corrupted (missing configuration)", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
+		// create CR
+		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// create statefu-set
 		sSetCopy := sSet.DeepCopy()
 		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())

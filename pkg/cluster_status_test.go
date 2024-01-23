@@ -8,23 +8,22 @@ import (
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
 )
 
-var _ = Describe("ModuleInstalled function", func() {
+var _ = Describe("GetStatus function", func() {
 	ctx := context.Background()
 
-	It("should return false if module is not installed", func() {
-		result, err := migration.ModuleInstalled(ctx, clientCpCrNotFound)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(result).Should(BeFalse())
+	It("should return error if CP CR was not found on cluster", func() {
+		_, _, err := migration.GetStatus(ctx, clientCpCrNotFound)
+		Expect(err).Should(HaveOccurred())
 	})
 
-	It("should return true if module is installed", func() {
-		result, err := migration.ModuleInstalled(ctx, clientCpCrFound)
+	It("should return SKIPPED status if module is installed", func() {
+		result, _, err := migration.GetStatus(ctx, clientCpCrFound)
 		Expect(err).ShouldNot(HaveOccurred())
-		Expect(result).Should(BeTrue())
+		Expect(result).Should(Equal(migration.StatusMigrationSkipped))
 	})
 
 	It("should return client error", func() {
-		_, err := migration.ModuleInstalled(ctx, clientCpCrErr)
+		_, _, err := migration.GetStatus(ctx, clientCpCrErr)
 		Expect(err).Should(MatchError(ErrNotFoundTest))
 	})
 })

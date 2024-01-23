@@ -11,7 +11,14 @@ func SetDefaults(ctx context.Context, cr *v294.ConnectivityProxy, _ Client) erro
 		return err
 	}
 
-	cr.Name = "connectivity-proxy"
-	cr.Namespace = "kyma-system"
+	cr.Name = v294.CProxyDefaultCRName
+	cr.Namespace = v294.CProxyDefaultCRNamespace
+	cr.Spec.Deployment.RestartWatcher.Enabled = true
+	cr.Spec.Ingress.ClassName = v294.ClassTypeIstio
+	cr.Spec.Ingress.Tls.SecretName = "cc-certs"
+	cr.Spec.Ingress.Timeouts.Proxy.Connect = 20
+	cr.Spec.Ingress.Timeouts.Proxy.Read = 120
+	cr.Spec.Ingress.Timeouts.Proxy.Send = 120
+	cr.Spec.SecretConfig.Integration.ConnectivityService.SecretName = "connectivity-proxy-service-key"
 	return nil
 }
