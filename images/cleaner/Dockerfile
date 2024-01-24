@@ -1,5 +1,5 @@
 FROM alpine/k8s:1.26.13
 
-COPY cleaner.sh .
+COPY images/cleaner/cleaner.sh .
 
 ENTRYPOINT ["./cleaner.sh"]
