@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-cleaner
+  namespace: kyma-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-cleaner
+  template:
+    metadata:
+      labels:
+        app: test-cleaner
+    spec:
+      initContainers:
+        - name: init-cleanup
+          image: k3d-my-registry.localhost:8888/test-image:v0.1
+          imagePullPolicy: Always
+          serviceAccountName: cleaner-sa
+      containers:
+        - name: test-cleaner
+          image: busybox
+          command: ['sh', '-c', 'echo The app is running! && sleep 3600']
