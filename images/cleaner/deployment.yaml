@@ -13,11 +13,11 @@ spec:
       labels:
         app: test-cleaner
     spec:
+      serviceAccountName: cleaner-sa
       initContainers:
         - name: init-cleanup
-          image: k3d-my-registry.localhost:8888/test-image:v0.1
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-cleaner:latest
           imagePullPolicy: Always
-          serviceAccountName: cleaner-sa
       containers:
         - name: test-cleaner
           image: busybox
