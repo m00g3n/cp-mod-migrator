@@ -47,7 +47,7 @@ echo "Annotate all existing Connectivity Proxy Service Mappings"
 
 mappings=$(kubectl get servicemappings.connectivityproxy.sap.com -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
 
-for mapping in mappings; do
+for mapping in $mappings; do
 
   echo "Applying annotations to service mapping $mapping"
 
