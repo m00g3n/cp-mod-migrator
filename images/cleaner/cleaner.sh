@@ -27,7 +27,7 @@ kubectl delete clusterrolebinding connectivity-proxy-service-mappings --ignore-n
 kubectl delete clusterrole connectivity-proxy-service-mappings --ignore-not-found
 kubectl delete serviceaccount -n kyma-system connectivity-proxy-sm-operator --ignore-not-found
 
-kubectl delete mutatingwebhookconfiguration -n kyma-system connectivity-proxy-mutating-webhook-configuration --ignore-not-found
+kubectl delete mutatingwebhookconfiguration connectivity-proxy-mutating-webhook-configuration --ignore-not-found
 
 echo "Removing all Connectivity Proxy ConfigMaps"
 
