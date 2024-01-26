@@ -19,13 +19,14 @@ kubectl delete service -n kyma-system connectivity-proxy-tunnel-healthcheck --ig
 
 echo "Removing all Connectivity Proxy RBAC resources"
 
+kubectl delete clusterrolebinding connectivity-proxy-restart-watcher --ignore-not-found
+kubectl delete clusterrole connectivity-proxy-restart-watcher --ignore-not-found
 kubectl delete serviceaccount -n kyma-system connectivity-proxy-restart-watcher --ignore-not-found
-kubectl delete clusterrole -n kyma-system connectivity-proxy-restart-watcher --ignore-not-found
-kubectl delete clusterrolebinding -n kyma-system connectivity-proxy-restart-watcher --ignore-not-found
 
+kubectl delete clusterrolebinding connectivity-proxy-service-mappings --ignore-not-found
+kubectl delete clusterrole connectivity-proxy-service-mappings --ignore-not-found
 kubectl delete serviceaccount -n kyma-system connectivity-proxy-sm-operator --ignore-not-found
-kubectl delete clusterrole -n kyma-system connectivity-proxy-service-mappings --ignore-not-found
-kubectl delete clusterrolebinding onnectivity-proxy-service-mappings --ignore-not-found
+
 kubectl delete mutatingwebhookconfiguration -n kyma-system connectivity-proxy-mutating-webhook-configuration --ignore-not-found
 
 echo "Removing all Connectivity Proxy ConfigMaps"
@@ -36,29 +37,18 @@ kubectl delete configmap -n kyma-system connectivity-proxy-info --ignore-not-fou
 echo "Removing all Connectivity Proxy Istio resources"
 
 kubectl delete envoyfilter -n istio-system connectivity-proxy-custom-protocol --ignore-not-found
-echo "A"
 kubectl delete gateway -n kyma-system kyma-gateway-cc --ignore-not-found
-echo "B"
 kubectl delete virtualservice -n kyma-system cc-proxy --ignore-not-found
-echo "C"
 kubectl delete virtualservice -n kyma-system cc-proxy-healthcheck --ignore-not-found
-echo "D"
 kubectl delete destinationrule -n kyma-system connectivity-proxy-tunnel-0 --ignore-not-found
-echo "E"
 kubectl delete destinationrule -n kyma-system connectivity-proxy --ignore-not-found
-echo "F"
 kubectl delete peerauthentication -n kyma-system enable-permissive-mode-for-cp --ignore-not-found
-echo "G"
 kubectl delete certificate -n istio-system cc-certs --ignore-not-found
-echo "I"
 kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
-
 
 echo "Annotate all existing Connectivity Proxy Service Mappings"
 
 mappings=$(kubectl get servicemappings.connectivityproxy.sap.com -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
-
-echo "H"
 
 for mapping in $mappings; do
 
