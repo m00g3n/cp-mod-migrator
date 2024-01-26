@@ -2,6 +2,10 @@
 
 echo "Running Connectivity Proxy Cleanup script"
 
+echo "Waiting 10 seconds"
+
+sleep 10
+
 echo "Removing all Connectivity Proxy workloads"
 
 kubectl delete statefulset -n kyma-system connectivity-proxy
