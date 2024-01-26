@@ -47,10 +47,12 @@ kubectl delete destinationrule -n kyma-system connectivity-proxy-tunnel-0 --igno
 echo "E"
 kubectl delete destinationrule -n kyma-system connectivity-proxy --ignore-not-found
 echo "F"
-kubectl delete peerauthentication -n enable-permissive-mode-for-cp --ignore-not-found
+kubectl delete peerauthentication -n kyma-system enable-permissive-mode-for-cp --ignore-not-found
 echo "G"
-
 kubectl delete certificate -n istio-system cc-certs --ignore-not-found
+echo "I"
+kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
+
 
 echo "Annotate all existing Connectivity Proxy Service Mappings"
 
