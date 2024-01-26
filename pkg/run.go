@@ -28,7 +28,7 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 		return err
 	}
 
-	status, err := GetStatus(ctx, k8sClient)
+	status, cp, err := GetStatus(ctx, k8sClient)
 	if err != nil {
 		return err
 	}
@@ -41,7 +41,6 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 		return nil
 	}
 
-	var cp v294.ConnectivityProxy
 	for _, f := range []extract.Function{
 		extract.SetDefaults,
 		extract.GetCPConfiguration,
@@ -52,13 +51,18 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 		}
 	}
 
+	if cp.Annotations == nil {
+		cp.Annotations = map[string]string{}
+	}
+	cp.Annotations[v294.CProxyMigratedAnnotation] = ""
 	data, err := cp.Encode()
 	if err != nil {
 		return err
 	}
 
-	if err := k8sClient.Create(ctx, &cp, &client.CreateOptions{
-		DryRun: dryRun,
+	if err := k8sClient.Update(ctx, &cp, &client.UpdateOptions{
+		DryRun:       dryRun,
+		FieldManager: "cp-mod-migrator",
 	}); err != nil {
 		return err
 	}

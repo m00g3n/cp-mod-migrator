@@ -1,5 +1,7 @@
 package v294
 
+// TODO: Rename the package to the exact version (2.11)
+
 import (
 	"bytes"
 	"encoding/base64"
@@ -16,6 +18,9 @@ const (
 	HighAvailabilityModeOff       HighAvailabilityMode = "off"
 	HighAvailabilityModePath      HighAvailabilityMode = "path"
 	HighAvailabilityModeSubdomain HighAvailabilityMode = "subdomain"
+	CProxyDefaultCRName           string               = "connectivity-proxy"
+	CProxyDefaultCRNamespace      string               = "kyma-system"
+	CProxyMigratedAnnotation      string               = "connectivityproxy.sap.com/migrated"
 )
 
 type AuditLogMode string
@@ -45,7 +50,10 @@ type Config struct {
 }
 
 type Spec struct {
-	Config Config `json:"config"`
+	Config       Config       `json:"config"`
+	Deployment   Deployment   `json:"deployment"`
+	Ingress      Ingress      `json:"ingress"`
+	SecretConfig SecretConfig `json:"secretConfig"`
 }
 
 type AuditLog struct {
@@ -131,6 +139,80 @@ type ProxyCfg struct {
 
 type ServiceChannels struct {
 	Enabled bool `json:"enabled"`
+}
+
+type Deployment struct {
+	RestartWatcher RestartWatcher `json:"restartWatcher"`
+}
+
+type RestartWatcher struct {
+	Enabled bool `json:"enabled"`
+}
+
+type Ingress struct {
+	ClassName ClassType  `json:"className"`
+	Tls       IngressTls `json:"tls"`
+	Timeouts  Timeouts   `json:"timeouts"`
+	Istio     Istio      `json:"istio"`
+}
+
+type ClassType string
+
+const (
+	ClassTypeIstio ClassType = "istio"
+	ClassTypeNginx ClassType = "nginx"
+)
+
+type IngressTls struct {
+	SecretName string `json:"secretName"`
+}
+
+type Timeouts struct {
+	Proxy TimeoutProxy `json:"proxy"`
+}
+
+type TimeoutProxy struct {
+	Connect int `json:"connect"`
+	Read    int `json:"read"`
+	Send    int `json:"send"`
+}
+
+type Istio struct {
+	Namespace string   `json:"namespace"`
+	Gateway   Gateway  `json:"gateway"`
+	Tls       IstioTls `json:"tls"`
+}
+
+type IstioTls struct {
+	Ciphers []string `json:"ciphers"`
+}
+
+type Gateway struct {
+	Selector Selector `json:"selector"`
+}
+
+type Selector struct {
+	AdditionalProperties string `json:"additionalProperties"`
+}
+
+type SecretConfig struct {
+	Integration SecretConfigIntegration `json:"integration"`
+}
+
+type SecretConfigIntegration struct {
+	ConnectivityService ServiceSecretConfig `json:"connectivityService"`
+	AuditLogService     ServiceSecretConfig `json:"auditlogService"`
+}
+
+type ServiceSecretConfig struct {
+	SecretName string `json:"secretName"`
+	SecretData string `json:"secretData,omitempty"`
+}
+
+// Migrated - checks for annotation to verify if the CR has been migrated
+func (c *ConnectivityProxy) Migrated() bool {
+	_, ok := c.Annotations[CProxyMigratedAnnotation]
+	return ok
 }
 
 // +kubebuilder:object:generate=true

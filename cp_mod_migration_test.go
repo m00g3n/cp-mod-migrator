@@ -45,11 +45,11 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		readYaml("hack/testdata/cp_stateful_set.yaml", &sSet)
 	})
 
-	It("should have types compatible with connectivity-porxy schema", func() {
+	It("should have types compatible with connectivity-proxy schema", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 
-		cr := cp("connectivity-proxy", ns.Name)
+		cr := cp("connectivity-proxy", ns.Name, true)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		Expect(k8sClient.Delete(ctx, &cr)).ShouldNot(HaveOccurred())
 	})
@@ -80,56 +80,53 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// create config-map with proxy information
 		cmInfoCopy := cmInfo.DeepCopy()
 		Expect(k8sClient.Create(ctx, cmInfoCopy)).ShouldNot(HaveOccurred())
-		// create statefu-set
+		// create stateful-set
 		sSetCopy := sSet.DeepCopy()
 		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
+		// create CR to be migrated
+		cr := cp("connectivity-proxy", ns.Name, false)
+		Expect(k8sClient.Create(ctx, cr.DeepCopy())).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
 		// fetch created CR
 		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
-		var cr v294.ConnectivityProxy
 		Expect(k8sClient.Get(ctx, key, &cr)).ShouldNot(HaveOccurred())
+		Expect(cr.Annotations).Should(HaveKeyWithValue(v294.CProxyMigratedAnnotation, ""))
+		// clean up
 		deleteObjs(ctx, cmCopy, cmInfoCopy, sSetCopy, &cr)
 	})
 
-	It("should not migrate data when CP module is installed on a cluster", func() {
+	It("should skip migration if the cluster is migrated already", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
-		cr := cp("existing-cr", ns.Name)
+		cr := cp(v294.CProxyDefaultCRName, ns.Name, true)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
-		// create config-map with configuration
-		cmCopy := cm.DeepCopy()
-		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
-		// create statefu-set
-		sSetCopy := sSet.DeepCopy()
-		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
-		// fetch created CR
-		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
-		Expect(k8sClient.Get(ctx, key, &cr)).Should(MatchError(`connectivityproxies.connectivityproxy.sap.com "connectivity-proxy" not found`))
-		deleteObjs(ctx, cmCopy, sSetCopy, &cr)
+		deleteObjs(ctx, &cr)
 	})
 
-	It("should not migrate data when non modular CP component is not installed on a cluster", func() {
+	It("should skip migration if CR is available but CP is not installed", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create config-map with configuration
 		cmCopy := cm.DeepCopy()
 		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
+		// create CR
+		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
-		// fetch created CR
-		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
-		var cr v294.ConnectivityProxy
-		Expect(k8sClient.Get(ctx, key, &cr)).Should(MatchError(`connectivityproxies.connectivityproxy.sap.com "connectivity-proxy" not found`))
-		deleteObjs(ctx, cmCopy)
+		deleteObjs(ctx, cmCopy, &cr)
 	})
 
-	It("should not migrate when non modular CP component is corrupted (missing configuration)", func() {
+	It("should not migrate when configuration is missing", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
+		// create CR
+		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// create statefu-set
 		sSetCopy := sSet.DeepCopy()
 		Expect(k8sClient.Create(ctx, sSetCopy)).ShouldNot(HaveOccurred())
@@ -138,7 +135,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		deleteObjs(ctx, sSetCopy)
 	})
 
-	It("should not migrate empty cluster", func() {
+	It("should not migrate if CR is not available", func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// start migration
