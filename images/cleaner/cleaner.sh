@@ -3,6 +3,21 @@
 set -e
 
 echo "Running Connectivity Proxy Cleanup script"
+
+echo "Annotate all existing Connectivity Proxy Service Mappings"
+
+mappings=$(kubectl get servicemappings.connectivityproxy.sap.com -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
+
+for mapping in $mappings; do
+
+  echo "Applying annotations to service mapping $mapping"
+
+  kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
+    io.javaoperatorsdk/primary-name=connectivity-proxy \
+    io.javaoperatorsdk/primary-namespace=kyma-system \
+
+done
+
 echo "Removing all Connectivity Proxy workloads"
 
 kubectl delete statefulset -n kyma-system connectivity-proxy --ignore-not-found
@@ -46,16 +61,3 @@ kubectl delete peerauthentication -n kyma-system enable-permissive-mode-for-cp -
 kubectl delete certificate -n istio-system cc-certs --ignore-not-found
 kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
 
-echo "Annotate all existing Connectivity Proxy Service Mappings"
-
-mappings=$(kubectl get servicemappings.connectivityproxy.sap.com -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
-
-for mapping in $mappings; do
-
-  echo "Applying annotations to service mapping $mapping"
-
-  kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
-    io.javaoperatorsdk/primary-name=connectivity-proxy \
-    io.javaoperatorsdk/primary-namespace=kyma-system \
-
-done
