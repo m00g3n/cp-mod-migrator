@@ -4,6 +4,14 @@ set -e
 
 echo "Running Connectivity Proxy Cleanup script"
 
+# check if statefulset connectivity-proxy does not exist and if so, exit  with 0
+if ! kubectl get statefulset -n kyma-system connectivity-proxy &> /dev/null; then
+  echo "Connectivity Proxy does not exist, exiting"
+  exit 0
+fi
+
+echo "Connectivity Proxy is installed"
+
 echo "Annotate all existing Connectivity Proxy Service Mappings"
 
 mappings=$(kubectl get servicemappings.connectivityproxy.sap.com -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
