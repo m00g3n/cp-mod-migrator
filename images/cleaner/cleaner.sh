@@ -69,3 +69,7 @@ kubectl delete peerauthentication -n kyma-system enable-permissive-mode-for-cp -
 kubectl delete certificate -n istio-system cc-certs --ignore-not-found
 kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
 
+echo "Removing all Connectivity Proxy secrets"
+
+kubectl delete secret -n kyma-system connectivity-proxy --ignore-not-found
+kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --ignore-not-found
