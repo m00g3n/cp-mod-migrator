@@ -15,6 +15,11 @@ spec:
     spec:
       serviceAccountName: cleaner-admin-sa
       initContainers:
+        - name: migrate-config
+          image: europe-docker.pkg.dev/kyma-project/dev/cp-mod-migrator:PR-11
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
         - name: init-cleanup
           image: europe-docker.pkg.dev/kyma-project/dev/cp-mod-cleaner:PR-10
           imagePullPolicy: Always
