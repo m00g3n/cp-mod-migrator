@@ -27,10 +27,11 @@ func deleteObjs(ctx context.Context, obj client.Object, objs ...client.Object) {
 var _ = Describe("cp-mod-migrator", Ordered, func() {
 
 	var (
-		ns     corev1.Namespace
-		cm     corev1.ConfigMap
-		cmInfo corev1.ConfigMap
-		sSet   appsv1.StatefulSet
+		ns        corev1.Namespace
+		cm        corev1.ConfigMap
+		cmInfo    corev1.ConfigMap
+		sSet      appsv1.StatefulSet
+		defaultCR v294.ConnectivityProxy
 	)
 
 	BeforeAll(func() {
@@ -43,6 +44,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		readYaml("hack/testdata/cp_cm.yaml", &cm)
 		readYaml("hack/testdata/cp_cm_info.yaml", &cmInfo)
 		readYaml("hack/testdata/cp_stateful_set.yaml", &sSet)
+		readYaml("hack/testdata/cp_default_cr.yaml", &defaultCR)
 	})
 
 	It("should have types compatible with connectivity-proxy schema", func() {
@@ -59,15 +61,13 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		defer cancel()
 
 		for range cms {
-			var cr v294.ConnectivityProxy
-			err := extract.GetCPConfiguration(ctx, &cr, mockedClient)
+			cr := defaultCR.DeepCopy()
+			err := extract.GetCPConfiguration(ctx, cr, mockedClient)
 			Expect(err).ShouldNot(HaveOccurred())
 
-			err = extract.SetDefaults(ctx, &cr, mockedClient)
-			Expect(err).ShouldNot(HaveOccurred())
-
-			Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
-			deleteObjs(ctx, &cr)
+			cr.Namespace = ns.Name
+			Expect(k8sClient.Create(ctx, cr)).ShouldNot(HaveOccurred())
+			deleteObjs(ctx, cr)
 		}
 	})
 

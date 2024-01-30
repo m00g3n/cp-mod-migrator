@@ -42,7 +42,6 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 	}
 
 	for _, f := range []extract.Function{
-		extract.SetDefaults,
 		extract.GetCPConfiguration,
 		extract.GetCPInfo,
 	} {
