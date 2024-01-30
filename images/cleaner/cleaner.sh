@@ -26,13 +26,13 @@ for mapping in $mappings; do
 
 done
 
-echo "Removing all Connectivity Proxy workloads"
+echo "Removing Deployments, and Statefulsets"
 
 kubectl delete statefulset -n kyma-system connectivity-proxy --ignore-not-found
 kubectl delete deployment -n kyma-system connectivity-proxy-restart-watcher --ignore-not-found
 kubectl delete deployment -n kyma-system connectivity-proxy-sm-operator --ignore-not-found
 
-echo "Removing all Connectivity Proxy services"
+echo "Removing Services"
 
 kubectl delete service -n kyma-system connectivity-proxy --ignore-not-found
 kubectl delete service -n kyma-system connectivity-proxy-smv --ignore-not-found
@@ -40,7 +40,7 @@ kubectl delete service -n kyma-system connectivity-proxy-tunnel --ignore-not-fou
 kubectl delete service -n kyma-system connectivity-proxy-tunnel-0 --ignore-not-found
 kubectl delete service -n kyma-system connectivity-proxy-tunnel-healthcheck --ignore-not-found
 
-echo "Removing all Connectivity Proxy RBAC resources"
+echo "Removing RBAC resources"
 
 kubectl delete clusterrolebinding connectivity-proxy-restart-watcher --ignore-not-found
 kubectl delete clusterrole connectivity-proxy-restart-watcher --ignore-not-found
@@ -50,14 +50,16 @@ kubectl delete clusterrolebinding connectivity-proxy-service-mappings --ignore-n
 kubectl delete clusterrole connectivity-proxy-service-mappings --ignore-not-found
 kubectl delete serviceaccount -n kyma-system connectivity-proxy-sm-operator --ignore-not-found
 
+echo "Removing Webhooks"
 kubectl delete mutatingwebhookconfiguration connectivity-proxy-mutating-webhook-configuration --ignore-not-found
+kubectl delete validatingwebhookconfiguration webhook-secret --ignore-not-found
 
-echo "Removing all Connectivity Proxy ConfigMaps"
+echo "Removing Config Maps"
 
 kubectl delete configmap -n kyma-system connectivity-proxy --ignore-not-found
 kubectl delete configmap -n kyma-system connectivity-proxy-info --ignore-not-found
 
-echo "Removing all Connectivity Proxy Istio resources"
+echo "Removing Istio resources"
 
 kubectl delete envoyfilter -n istio-system connectivity-proxy-custom-protocol --ignore-not-found
 kubectl delete gateway -n kyma-system kyma-gateway-cc --ignore-not-found
@@ -69,10 +71,10 @@ kubectl delete peerauthentication -n kyma-system enable-permissive-mode-for-cp -
 kubectl delete certificate -n istio-system cc-certs --ignore-not-found
 kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
 
-echo "Removing all Connectivity Proxy secrets"
+echo "Removing Secrets"
 
 # kubectl delete secret -n kyma-system connectivity-proxy-service-key --ignore-not-found
 kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --ignore-not-found
 
-echo "Removing Connectivity Proxy priorityclass"
+echo "Removing PriorityClass resources"
 kubectl delete priorityclass -n kyma-system connectivity-proxy-priority-class --ignore-not-found
