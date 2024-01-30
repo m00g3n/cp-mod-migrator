@@ -54,7 +54,7 @@ func cp(name, namespace string, migrated bool) v294.ConnectivityProxy {
 					AuditLog: v294.AuditLog{
 						Mode: v294.AuditLogModeConsole,
 					},
-					ConnectivityService: v294.ConnectivityService{
+					ConnectivityService: &v294.ConnectivityService{
 						ServiceCredentialsKey: "test",
 					},
 				},
