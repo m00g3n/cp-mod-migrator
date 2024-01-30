@@ -6,15 +6,14 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
-	"path/filepath"
 
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
 	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/util/homedir"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -45,8 +44,16 @@ func addToScheme(s *runtime.Scheme) error {
 	return nil
 }
 
+func restConfig(kubeconfigPath string) (*rest.Config, error) {
+	if kubeconfigPath == "" {
+		return rest.InClusterConfig()
+	}
+
+	return clientcmd.BuildConfigFromFlags("", kubeconfigPath)
+}
+
 func (cfg *config) client() (client.Client, error) {
-	restCfg, err := clientcmd.BuildConfigFromFlags("", cfg.kubeconfigPath)
+	restCfg, err := restConfig(cfg.kubeconfigPath)
 	if err != nil {
 		return nil, fmt.Errorf("unable to fetch rest config: %w", err)
 	}
@@ -66,24 +73,10 @@ func (cfg *config) client() (client.Client, error) {
 	})
 }
 
-// kubeconfigPathVar - registers kubeconfigPath flag
-func kubeconfigPathVar(kubeconfigFlag *string) {
-	if home := homedir.HomeDir(); home != "" {
-		flag.StringVar(
-			kubeconfigFlag,
-			"kubeconfig",
-			filepath.Join(home, ".kube", "config"),
-			"(optional) absolute path to the kubeconfig file")
-		return
-	}
-
-	flag.StringVar(kubeconfigFlag, "kubeconfig", "", "absolute path to the kubeconfig file")
-}
-
 // newConfig - creates new application configuration base on passed flags
 func newConfig() config {
 	result := config{}
-	kubeconfigPathVar(&result.kubeconfigPath)
+	flag.StringVar(&result.kubeconfigPath, "kubeconfig", "", "absolute path to the kubeconfig file")
 	flag.BoolVar(
 		&result.isDryRun,
 		"dry-run",
