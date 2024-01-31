@@ -1,5 +1,5 @@
 FROM alpine/k8s:1.26.13
 
-COPY backup.sh .
+COPY images/backup/backup.sh .
 
 ENTRYPOINT ["./backup.sh"]

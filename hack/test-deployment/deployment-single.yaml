@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-cleaner
+  namespace: kyma-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-cleaner
+  template:
+    metadata:
+      labels:
+        app: test-cleaner
+    spec:
+      serviceAccountName: cleaner-admin-sa
+      containers:
+        - name: test-cleaner
+          image:  europe-docker.pkg.dev/kyma-project/dev/cp-mod-cleaner:PR-10
+          command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+          imagePullPolicy: Always
