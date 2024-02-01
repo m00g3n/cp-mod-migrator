@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -54,7 +54,7 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 	if cp.Annotations == nil {
 		cp.Annotations = map[string]string{}
 	}
-	cp.Annotations[v294.CProxyMigratedAnnotation] = ""
+	cp.Annotations[v211.CProxyMigratedAnnotation] = ""
 	data, err := cp.Encode()
 	if err != nil {
 		return err

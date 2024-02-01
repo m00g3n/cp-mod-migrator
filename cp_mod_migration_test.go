@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
@@ -31,7 +31,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		cm        corev1.ConfigMap
 		cmInfo    corev1.ConfigMap
 		sSet      appsv1.StatefulSet
-		defaultCR v294.ConnectivityProxy
+		defaultCR v211.ConnectivityProxy
 	)
 
 	BeforeAll(func() {
@@ -91,7 +91,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// fetch created CR
 		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
 		Expect(k8sClient.Get(ctx, key, &cr)).ShouldNot(HaveOccurred())
-		Expect(cr.Annotations).Should(HaveKeyWithValue(v294.CProxyMigratedAnnotation, ""))
+		Expect(cr.Annotations).Should(HaveKeyWithValue(v211.CProxyMigratedAnnotation, ""))
 		// clean up
 		deleteObjs(ctx, cmCopy, cmInfoCopy, sSetCopy, &cr)
 	})
@@ -100,7 +100,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
-		cr := cp(v294.CProxyDefaultCRName, ns.Name, true)
+		cr := cp(v211.CProxyDefaultCRName, ns.Name, true)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
@@ -114,7 +114,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		cmCopy := cm.DeepCopy()
 		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
 		// create CR
-		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		cr := cp(v211.CProxyDefaultCRName, ns.Name, false)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
@@ -125,7 +125,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
-		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		cr := cp(v211.CProxyDefaultCRName, ns.Name, false)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// create statefu-set
 		sSetCopy := sSet.DeepCopy()

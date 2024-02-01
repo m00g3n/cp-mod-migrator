@@ -8,7 +8,7 @@ import (
 
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/mock"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/mocks"
 	corev1 "k8s.io/api/core/v1"
@@ -34,58 +34,58 @@ func namespace(name string) corev1.Namespace {
 	}
 }
 
-func cp(name, namespace string, migrated bool) v294.ConnectivityProxy {
+func cp(name, namespace string, migrated bool) v211.ConnectivityProxy {
 	annotations := map[string]string{}
 	if migrated {
-		annotations[v294.CProxyMigratedAnnotation] = "true"
+		annotations[v211.CProxyMigratedAnnotation] = "true"
 	}
 
-	return v294.ConnectivityProxy{
+	return v211.ConnectivityProxy{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:        name,
 			Namespace:   namespace,
 			Annotations: annotations,
 		},
-		Spec: v294.Spec{
-			Config: v294.Config{
-				HighAvailabilityMode: v294.HighAvailabilityModeOff,
+		Spec: v211.Spec{
+			Config: v211.Config{
+				HighAvailabilityMode: v211.HighAvailabilityModeOff,
 
-				Integration: v294.Integration{
-					AuditLog: v294.AuditLog{
-						Mode: v294.AuditLogModeConsole,
+				Integration: v211.Integration{
+					AuditLog: v211.AuditLog{
+						Mode: v211.AuditLogModeConsole,
 					},
-					ConnectivityService: &v294.ConnectivityService{
+					ConnectivityService: &v211.ConnectivityService{
 						ServiceCredentialsKey: "test",
 					},
 				},
 
-				Servers: v294.Servers{
-					BusinessDataTunnel: v294.BusinessDataTunnel{
+				Servers: v211.Servers{
+					BusinessDataTunnel: v211.BusinessDataTunnel{
 						ExternalHost: "test",
 						ExternalPort: 20,
 					},
-					Proxy: v294.Proxy{
-						HTTP: v294.HTTP{
+					Proxy: v211.Proxy{
+						HTTP: v211.HTTP{
 							Port: 123,
 						},
 					},
 				},
 
-				ConnectivityService: v294.ConnectivityService{
+				ConnectivityService: v211.ConnectivityService{
 					ServiceCredentialsKey: "test",
 				},
 
 				SubaccountID: "test-me-plz",
-				TenantMode:   v294.TenantModeDedicated,
+				TenantMode:   v211.TenantModeDedicated,
 			},
 
-			Ingress: v294.Ingress{
-				ClassName: v294.ClassTypeIstio,
+			Ingress: v211.Ingress{
+				ClassName: v211.ClassTypeIstio,
 			},
 
-			SecretConfig: v294.SecretConfig{
-				Integration: v294.SecretConfigIntegration{
-					ConnectivityService: v294.ServiceSecretConfig{
+			SecretConfig: v211.SecretConfig{
+				Integration: v211.SecretConfigIntegration{
+					ConnectivityService: v211.ServiceSecretConfig{
 						SecretName: "test",
 					},
 				},

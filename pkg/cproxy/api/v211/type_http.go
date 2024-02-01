@@ -1,28 +1,28 @@
-package v294
+package v211
 
 import "k8s.io/apimachinery/pkg/util/json"
 
-type Socks5 ProxyCfg
+type HTTP ProxyCfg
 
-const DefaultPortSocks5 = 2004
+const DefaultPortHTTP = 2003
 
-func (p *Socks5) UnmarshalJSON(text []byte) error {
+func (p *HTTP) UnmarshalJSON(text []byte) error {
 	var result ProxyCfg
 	if err := json.Unmarshal(text, &result); err != nil {
 		return err
 	}
 
 	if result.Port == 0 {
-		result.Port = DefaultPortSocks5
+		result.Port = DefaultPortHTTP
 	}
 
-	*p = Socks5(result)
+	*p = HTTP(result)
 	return nil
 }
 
-func (p *Socks5) MarshalJSON() ([]byte, error) {
+func (p *HTTP) MarshalJSON() ([]byte, error) {
 	if p.Port == 0 {
-		p.Port = DefaultPortSocks5
+		p.Port = DefaultPortHTTP
 	}
 
 	proxyCfg := ProxyCfg(*p)

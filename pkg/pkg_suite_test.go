@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/mock"
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/mocks"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -28,9 +28,9 @@ var (
 	mockArgsAny     = []interface{}{mock.Anything, mock.Anything, mock.Anything}
 )
 
-func setupClientCpCR(t *testing.T, cp v294.ConnectivityProxy) (migration.Client, error) {
+func setupClientCpCR(t *testing.T, cp v211.ConnectivityProxy) (migration.Client, error) {
 	runFn := func(args mock.Arguments) {
-		_cp := args.Get(2).(*v294.ConnectivityProxy)
+		_cp := args.Get(2).(*v211.ConnectivityProxy)
 		*_cp = cp
 	}
 
@@ -49,9 +49,9 @@ func setupClientCpCRErr(t *testing.T) error {
 }
 
 func setupClientCpCRFound(t *testing.T) (err error) {
-	clientCpCrFound, err = setupClientCpCR(t, v294.ConnectivityProxy{
+	clientCpCrFound, err = setupClientCpCR(t, v211.ConnectivityProxy{
 		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{v294.CProxyMigratedAnnotation: ""},
+			Annotations: map[string]string{v211.CProxyMigratedAnnotation: ""},
 		},
 	})
 	return err

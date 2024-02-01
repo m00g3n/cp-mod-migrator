@@ -1,6 +1,6 @@
 .PHONY: generate
 generate: controller-gen
-	$(CONTROLLER_GEN) object paths="./pkg/cproxy/api/v294"
+	$(CONTROLLER_GEN) object paths="./pkg/cproxy/api/v211"
 
 ## Location to install dependencies to
 LOCALBIN ?= $(shell pwd)/bin

@@ -75,7 +75,7 @@ func main() {
 	slog.Info(fmt.Sprintf("%s: %d", fileName, written))
 }
 
-const text = `package v294
+const text = `package v211
 
 import "k8s.io/apimachinery/pkg/util/json"
 
