@@ -32,7 +32,8 @@ kubectl delete cm -n $BACKUP_NS connectivity-proxy-info --ignore-not-found
 echo "Backing up Connectivity Proxy config maps"
 
 # read config maps connectivity-proxy and connectivity-proxy-info config maps from kyma-system namespace and store them in a backup namespace
-kubectl get cm -n kyma-system connectivity-proxy -o yaml | sed 's/namespace: kyma-system: '${BACKUP_NS}'/g' | kubectl apply -f -
-kubectl get cm -n kyma-system connectivity-proxy-info -o yaml | sed 's/namespace: kyma-system: '${BACKUP_NS}'/g' | kubectl apply -f -
+kubectl get cm -n kyma-system connectivity-proxy -o yaml | sed s/"namespace: kyma-system"/"namespace: $BACKUP_NS"/ | kubectl apply -f -
+kubectl get cm -n kyma-system connectivity-proxy-info -o yaml | sed s/"namespace: kyma-system"/"namespace: $BACKUP_NS"/ | kubectl apply -f -
+
 
 echo "Connectivity Proxy Backup script completed successfully"
