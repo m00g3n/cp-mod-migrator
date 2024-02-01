@@ -15,7 +15,7 @@ if ! kubectl get cm -n kyma-system connectivity-proxy &> /dev/null; then
 fi
 
 if ! kubectl get cm -n kyma-system connectivity-proxy-info &> /dev/null; then
-  echo "connectivity-proxy config map does not exist in kyma-system namespace, exiting"
+  echo "connectivity-proxy-info config map does not exist in kyma-system namespace, exiting"
   exit 0
 fi
 
