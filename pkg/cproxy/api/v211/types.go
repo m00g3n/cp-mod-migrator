@@ -108,9 +108,9 @@ type Servers struct {
 
 type Proxy struct {
 	Authorization *Authorization `json:"authorization,omitempty"`
-	HTTP          HTTP           `json:"http"`
-	RfcAndLdap    RfcAndLdap     `json:"rfcAndLdap"`
-	Socks5        Socks5         `json:"socks5"`
+	HTTP          ProxyCfg       `json:"http"`
+	RfcAndLdap    ProxyCfg       `json:"rfcAndLdap"`
+	Socks5        ProxyCfg       `json:"socks5"`
 }
 
 type Authorization struct {
@@ -132,10 +132,6 @@ type ProxyCfg struct {
 	EnableProxyAuthorization bool  `json:"enableProxyAuthorization"`
 	Port                     int   `json:"port"`
 }
-
-//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name HTTP -port-number 2003
-//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name Socks5 -port-number 2004
-//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name RfcAndLdap -port-number 2001
 
 type ServiceChannels struct {
 	Enabled bool `json:"enabled"`

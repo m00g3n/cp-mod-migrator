@@ -65,7 +65,13 @@ func cp(name, namespace string, migrated bool) v211.ConnectivityProxy {
 						ExternalPort: 20,
 					},
 					Proxy: v211.Proxy{
-						HTTP: v211.HTTP{
+						HTTP: v211.ProxyCfg{
+							Port: 123,
+						},
+						RfcAndLdap: v211.ProxyCfg{
+							Port: 123,
+						},
+						Socks5: v211.ProxyCfg{
 							Port: 123,
 						},
 					},
