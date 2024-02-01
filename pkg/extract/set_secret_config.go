@@ -12,13 +12,17 @@ var ErrInvalidValue = fmt.Errorf("invalid value")
 
 func SetSecretConfig(_ context.Context, cr *v211.ConnectivityProxy, _ Client) error {
 	if cr == nil {
-		return fmt.Errorf("%w: %s", ErrInvalidValue, "cr must not be nil")
+		return fmt.Errorf("%w: cr must not be nil", ErrInvalidValue)
 	}
-	// go with defaults if tenant mode is not shared
-	if cr.Spec.Config.TenantMode != v211.TenantModeShared {
+
+	if cr.Spec.Config.TenantMode == v211.TenantModeDedicated {
 		return nil
 	}
 
-	cr.Spec.SecretConfig.Integration.ConnectivityService.SecretName = v293.CProxyConnectivityServiceSecretName
-	return nil
+	if cr.Spec.Config.TenantMode == v211.TenantModeShared {
+		cr.Spec.SecretConfig.Integration.ConnectivityService.SecretName = v293.CProxyConnectivityServiceSecretName
+		return nil
+	}
+
+	return fmt.Errorf("%w: '%s'", ErrInvalidValue, cr.Spec.Config.TenantMode)
 }
