@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	"github.tools.sap/framefrog/cp-mod-migrator/pkg/extract"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
@@ -27,10 +27,11 @@ func deleteObjs(ctx context.Context, obj client.Object, objs ...client.Object) {
 var _ = Describe("cp-mod-migrator", Ordered, func() {
 
 	var (
-		ns     corev1.Namespace
-		cm     corev1.ConfigMap
-		cmInfo corev1.ConfigMap
-		sSet   appsv1.StatefulSet
+		ns        corev1.Namespace
+		cm        corev1.ConfigMap
+		cmInfo    corev1.ConfigMap
+		sSet      appsv1.StatefulSet
+		defaultCR v211.ConnectivityProxy
 	)
 
 	BeforeAll(func() {
@@ -43,6 +44,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		readYaml("hack/testdata/cp_cm.yaml", &cm)
 		readYaml("hack/testdata/cp_cm_info.yaml", &cmInfo)
 		readYaml("hack/testdata/cp_stateful_set.yaml", &sSet)
+		readYaml("hack/testdata/cp_default_cr.yaml", &defaultCR)
 	})
 
 	It("should have types compatible with connectivity-proxy schema", func() {
@@ -59,15 +61,13 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		defer cancel()
 
 		for range cms {
-			var cr v294.ConnectivityProxy
-			err := extract.GetCPConfiguration(ctx, &cr, mockedClient)
+			cr := defaultCR.DeepCopy()
+			err := extract.GetCPConfiguration(ctx, cr, mockedClient)
 			Expect(err).ShouldNot(HaveOccurred())
 
-			err = extract.SetDefaults(ctx, &cr, mockedClient)
-			Expect(err).ShouldNot(HaveOccurred())
-
-			Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
-			deleteObjs(ctx, &cr)
+			cr.Namespace = ns.Name
+			Expect(k8sClient.Create(ctx, cr)).ShouldNot(HaveOccurred())
+			deleteObjs(ctx, cr)
 		}
 	})
 
@@ -91,7 +91,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// fetch created CR
 		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
 		Expect(k8sClient.Get(ctx, key, &cr)).ShouldNot(HaveOccurred())
-		Expect(cr.Annotations).Should(HaveKeyWithValue(v294.CProxyMigratedAnnotation, ""))
+		Expect(cr.Annotations).Should(HaveKeyWithValue(v211.CProxyMigratedAnnotation, ""))
 		// clean up
 		deleteObjs(ctx, cmCopy, cmInfoCopy, sSetCopy, &cr)
 	})
@@ -100,7 +100,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
-		cr := cp(v294.CProxyDefaultCRName, ns.Name, true)
+		cr := cp(v211.CProxyDefaultCRName, ns.Name, true)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
@@ -114,7 +114,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		cmCopy := cm.DeepCopy()
 		Expect(k8sClient.Create(ctx, cmCopy)).ShouldNot(HaveOccurred())
 		// create CR
-		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		cr := cp(v211.CProxyDefaultCRName, ns.Name, false)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// start migration
 		Expect(migration.Run(ctx, getK8sClient, []string{})).ShouldNot(HaveOccurred())
@@ -125,7 +125,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		// create CR
-		cr := cp(v294.CProxyDefaultCRName, ns.Name, false)
+		cr := cp(v211.CProxyDefaultCRName, ns.Name, false)
 		Expect(k8sClient.Create(ctx, &cr)).ShouldNot(HaveOccurred())
 		// create statefu-set
 		sSetCopy := sSet.DeepCopy()

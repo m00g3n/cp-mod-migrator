@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	v293 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v293"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -18,7 +18,7 @@ var (
 	}
 )
 
-func GetCPInfo(ctx context.Context, cr *v294.ConnectivityProxy, c Client) error {
+func GetCPInfo(ctx context.Context, cr *v211.ConnectivityProxy, c Client) error {
 	var cm corev1.ConfigMap
 	if err := c.Get(ctx, cmKeyInfo, &cm); err != nil {
 		return err

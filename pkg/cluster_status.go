@@ -3,7 +3,7 @@ package migration
 import (
 	"context"
 
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -22,12 +22,12 @@ type Client interface {
 	client.Client
 }
 
-func GetStatus(ctx context.Context, c Client) (Status, v294.ConnectivityProxy, error) {
-	var cp v294.ConnectivityProxy
+func GetStatus(ctx context.Context, c Client) (Status, v211.ConnectivityProxy, error) {
+	var cp v211.ConnectivityProxy
 	// get connectivity proxy
 	key := client.ObjectKey{
-		Namespace: v294.CProxyDefaultCRNamespace,
-		Name:      v294.CProxyDefaultCRName,
+		Namespace: v211.CProxyDefaultCRNamespace,
+		Name:      v211.CProxyDefaultCRName,
 	}
 	if err := c.Get(ctx, key, &cp); err != nil {
 		return StatusUnknown, cp, err

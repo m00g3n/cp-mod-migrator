@@ -8,7 +8,7 @@ import (
 	"os"
 
 	migration "github.tools.sap/framefrog/cp-mod-migrator/pkg"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -32,7 +32,7 @@ func (c *config) dryRun() []string {
 
 func addToScheme(s *runtime.Scheme) error {
 	for _, add := range []func(s *runtime.Scheme) error{
-		v294.AddToScheme,
+		v211.AddToScheme,
 		corev1.AddToScheme,
 		appsv1.AddToScheme,
 	} {

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log/slog"
 
+	v211 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v211"
 	v293 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v293"
-	v294 "github.tools.sap/framefrog/cp-mod-migrator/pkg/cproxy/api/v294"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -27,9 +27,9 @@ type Client interface {
 	client.Client
 }
 
-type Function func(context.Context, *v294.ConnectivityProxy, Client) error
+type Function func(context.Context, *v211.ConnectivityProxy, Client) error
 
-func GetCPConfiguration(ctx context.Context, cr *v294.ConnectivityProxy, c Client) error {
+func GetCPConfiguration(ctx context.Context, cr *v211.ConnectivityProxy, c Client) error {
 	var cm corev1.ConfigMap
 	if err := c.Get(ctx, cmKeyCfg, &cm); err != nil {
 		return err
