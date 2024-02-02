@@ -100,5 +100,5 @@ kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --igno
 echo "Removing PriorityClass resources"
 kubectl delete priorityclass -n kyma-system connectivity-proxy-priority-class --ignore-not-found
 
-
+echo "Annotate CR that clean up is completed after migration"
 kubectl annotate connectivityproxy.sap.com connectivity-proxy -n kyma-system annotations.connectivityproxy\.sap\.com/cleaned="true"
