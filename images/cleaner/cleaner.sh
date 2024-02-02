@@ -12,7 +12,7 @@ if ! kubectl get crd connectivityproxy.sap.com &> /dev/null; then
 fi
 
 if ! kubectl get connectivityproxy.sap.com connectivity-proxy &> /dev/null; then
-   echo "Connectivity Proxy CR does is missing on the cluster - exiting"
+   echo "Connectivity Proxy CR is missing on the cluster - exiting"
   exit 0
 fi
 
