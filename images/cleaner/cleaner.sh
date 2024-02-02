@@ -5,18 +5,22 @@ set -x
 
 echo "Running Connectivity Proxy Cleanup script"
 
-echo "Annotate all existing Connectivity Proxy Service Mappings"
+if kubectl get crd servicemappings.connectivityproxy.sap.com &> /dev/null; then
+  echo "CRD servicemappings.connectivityproxy.sap.com exists on the cluster"
+  echo "Annotate all existing Connectivity Proxy Service Mappings"
 
-mappings=$(kubectl get servicemappings.connectivityproxy.sap.com --ignore-not-found -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
+  mappings=$(kubectl get servicemappings.connectivityproxy.sap.com --ignore-not-found -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
 
-for mapping in $mappings; do
+  for mapping in $mappings; do
 
-  echo "Applying annotations to service mapping $mapping"
-  kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
-    io.javaoperatorsdk/primary-name=connectivity-proxy \
-    io.javaoperatorsdk/primary-namespace=kyma-system \
+    echo "Applying annotations to service mapping $mapping"
 
-done
+    kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
+      io.javaoperatorsdk/primary-name=connectivity-proxy \
+      io.javaoperatorsdk/primary-namespace=kyma-system \
+
+  done
+fi
 
 echo "Removing Deployments, and Statefulsets"
 
