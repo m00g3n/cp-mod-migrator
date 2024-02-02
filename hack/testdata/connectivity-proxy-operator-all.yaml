@@ -1,0 +1,610 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: connectivityproxies.connectivityproxy.sap.com
+spec:
+  group: connectivityproxy.sap.com
+  names:
+    kind: ConnectivityProxy
+    plural: connectivityproxies
+    shortNames:
+      - cp
+    singular: connectivityproxy
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.state
+          name: STATE
+          priority: 0
+          type: string
+      name: v1
+      schema:
+        openAPIV3Schema:
+          properties:
+            spec:
+              properties:
+                config:
+                  properties:
+                    highAvailabilityMode:
+                      default: "off"
+                      pattern: ^(off|path|subdomain)$
+                      type: string
+                    integration:
+                      default:
+                        auditlog:
+                          mode: console
+                        connectivityService:
+                          serviceCredentialsKey: service_key
+                      properties:
+                        auditlog:
+                          default:
+                            mode: console
+                          properties:
+                            mode:
+                              default: console
+                              pattern: ^(console|service)$
+                              type: string
+                            serviceCredentialsKey:
+                              type: string
+                          required:
+                            - mode
+                          type: object
+                        connectivityService:
+                          default:
+                            serviceCredentialsKey: service_key
+                          properties:
+                            serviceCredentialsKey:
+                              default: service_key
+                              type: string
+                          required:
+                            - serviceCredentialsKey
+                          type: object
+                      required:
+                        - auditlog
+                        - connectivityService
+                      type: object
+                    multiRegionMode:
+                      default:
+                        enabled: false
+                      properties:
+                        configMapName:
+                          type: string
+                        enabled:
+                          default: false
+                          type: boolean
+                      required:
+                        - enabled
+                      type: object
+                    servers:
+                      properties:
+                        businessDataTunnel:
+                          properties:
+                            externalHost:
+                              type: string
+                            externalPort:
+                              default: 443
+                              maximum: 65535.0
+                              minimum: 1.0
+                              type: integer
+                          required:
+                            - externalHost
+                            - externalPort
+                          type: object
+                        proxy:
+                          default:
+                            http:
+                              enableProxyAuthorization: false
+                              enabled: true
+                              port: 20003
+                            rfcAndLdap:
+                              enableProxyAuthorization: false
+                              enabled: true
+                              port: 20001
+                            socks5:
+                              enableProxyAuthorization: false
+                              enabled: true
+                              port: 20004
+                          properties:
+                            authorization:
+                              properties:
+                                oauth:
+                                  properties:
+                                    allowedClientId:
+                                      type: string
+                                  required:
+                                    - allowedClientId
+                                  type: object
+                              required:
+                                - oauth
+                              type: object
+                            http:
+                              default:
+                                enableProxyAuthorization: false
+                                enabled: true
+                                port: 20003
+                              properties:
+                                allowRemoteConnections:
+                                  type: boolean
+                                enableProxyAuthorization:
+                                  default: false
+                                  type: boolean
+                                enabled:
+                                  default: true
+                                  type: boolean
+                                port:
+                                  default: 20004
+                                  maximum: 65535.0
+                                  minimum: 1.0
+                                  type: integer
+                              type: object
+                            rfcAndLdap:
+                              default:
+                                enableProxyAuthorization: false
+                                enabled: true
+                                port: 20001
+                              properties:
+                                allowRemoteConnections:
+                                  type: boolean
+                                enableProxyAuthorization:
+                                  default: false
+                                  type: boolean
+                                enabled:
+                                  default: true
+                                  type: boolean
+                                port:
+                                  default: 20001
+                                  maximum: 65535.0
+                                  minimum: 1.0
+                                  type: integer
+                              type: object
+                            socks5:
+                              default:
+                                enableProxyAuthorization: false
+                                enabled: true
+                                port: 20004
+                              properties:
+                                allowRemoteConnections:
+                                  type: boolean
+                                enableProxyAuthorization:
+                                  default: false
+                                  type: boolean
+                                enabled:
+                                  default: true
+                                  type: boolean
+                                port:
+                                  default: 20004
+                                  maximum: 65535.0
+                                  minimum: 1.0
+                                  type: integer
+                              type: object
+                          type: object
+                      required:
+                        - businessDataTunnel
+                        - proxy
+                      type: object
+                    serviceChannels:
+                      default:
+                        enabled: true
+                      properties:
+                        enabled:
+                          default: true
+                          type: boolean
+                      required:
+                        - enabled
+                      type: object
+                    subaccountId:
+                      pattern: "^[a-zA-Z0-9-]+$"
+                      type: string
+                    subaccountSubdomain:
+                      type: string
+                    tenantMode:
+                      default: dedicated
+                      pattern: ^(dedicated|shared)$
+                      type: string
+                  required:
+                    - integration
+                    - servers
+                    - tenantMode
+                  type: object
+                deployment:
+                  default:
+                    image:
+                      registry: docker.io
+                      repository: sapse/connectivity-proxy
+                      tag: 2.11.0
+                      pullPolicy: IfNotPresent
+                    utilityImage:
+                      registry: docker.io
+                      repository: ipenev835/test
+                      tag: test
+                      pullPolicy: IfNotPresent
+                    replicaCount: 1
+                    resources:
+                      maxFileDescriptorCount: 64000
+                      limits:
+                        cpu: 1000m
+                        memory: 1024M
+                      requests:
+                        cpu: 100m
+                        memory: 256M
+                    restartWatcher:
+                      enabled: true
+                  properties:
+                    image:
+                      default:
+                        registry: docker.io
+                        repository: sapse/connectivity-proxy
+                        tag: 2.11.0
+                        pullPolicy: IfNotPresent
+                      properties:
+                        digest:
+                          type: string
+                        pullPolicy:
+                          default: IfNotPresent
+                          pattern: ^(Always|IfNotPresent|Never)$
+                          type: string
+                        pullSecret:
+                          type: string
+                        registry:
+                          default: docker.io
+                          type: string
+                        repository:
+                          default: sapse/connectivity-proxy
+                          type: string
+                        tag:
+                          default: 2.11.0
+                          type: string
+                      required:
+                        - registry
+                        - repository
+                        - tag
+                      type: object
+                    replicaCount:
+                      default: 1
+                      minimum: 1.0
+                      type: integer
+                    resources:
+                      default:
+                        maxFileDescriptorCount: 64000
+                        requests:
+                          cpu: 100m
+                          memory: 256M
+                        limits:
+                          cpu: 1000m
+                          memory: 1024M
+                      properties:
+                        limits:
+                          default:
+                            cpu: 1000m
+                            memory: 1024M
+                          properties:
+                            cpu:
+                              default: 1000m
+                              type: string
+                            memory:
+                              default: 1024M
+                              type: string
+                          required:
+                            - cpu
+                            - memory
+                          type: object
+                        maxFileDescriptorCount:
+                          default: 64000
+                          minimum: 10.0
+                          type: integer
+                        requests:
+                          default:
+                            cpu: 100m
+                            memory: 256M
+                          properties:
+                            cpu:
+                              default: 100m
+                              type: string
+                            memory:
+                              default: 256M
+                              type: string
+                          required:
+                            - cpu
+                            - memory
+                          type: object
+                      required:
+                        - maxFileDescriptorCount
+                        - limits
+                      type: object
+                    restartWatcher:
+                      default:
+                        enabled: true
+                      properties:
+                        enabled:
+                          default: true
+                          type: boolean
+                      required:
+                        - enabled
+                      type: object
+                    utilityImage:
+                      default:
+                        registry: docker.io
+                        repository: ipenev835/test
+                        tag: test
+                        pullPolicy: IfNotPresent
+                      properties:
+                        digest:
+                          type: string
+                        pullPolicy:
+                          default: IfNotPresent
+                          pattern: ^(Always|IfNotPresent|Never)$
+                          type: string
+                        pullSecret:
+                          type: string
+                        registry:
+                          default: docker.io
+                          type: string
+                        repository:
+                          default: ipenev835/test
+                          type: string
+                        tag:
+                          default: test
+                          type: string
+                      required:
+                        - registry
+                        - repository
+                        - tag
+                      type: object
+                  required:
+                    - image
+                    - utilityImage
+                    - replicaCount
+                    - resources
+                  type: object
+                ingress:
+                  default:
+                    className: istio
+                    timeouts:
+                      proxy:
+                        connect: 20
+                        read: 120
+                        send: 120
+                  properties:
+                    annotations:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    className:
+                      default: istio
+                      pattern: ^(nginx|istio)$
+                      type: string
+                    istio:
+                      properties:
+                        gateway:
+                          properties:
+                            selector:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                        namespace:
+                          type: string
+                        tls:
+                          properties:
+                            ciphers:
+                              items:
+                                type: string
+                              type: array
+                          type: object
+                      type: object
+                    timeouts:
+                      default:
+                        proxy:
+                          connect: 20
+                          read: 120
+                          send: 120
+                      properties:
+                        proxy:
+                          default:
+                            connect: 20
+                            read: 120
+                            send: 120
+                          properties:
+                            connect:
+                              default: 10
+                              type: integer
+                            read:
+                              default: 120
+                              type: integer
+                            send:
+                              default: 120
+                              type: integer
+                          required:
+                            - connect
+                            - read
+                            - send
+                          type: object
+                      type: object
+                    tls:
+                      properties:
+                        secretName:
+                          type: string
+                      required:
+                        - secretName
+                      type: object
+                  required:
+                    - timeouts
+                  type: object
+                secretConfig:
+                  default:
+                    integration:
+                      connectivityService:
+                        secretName: connectivity-proxy-service-key
+                  properties:
+                    integration:
+                      default:
+                        connectivityService:
+                          secretName: connectivity-proxy-service-key
+                      properties:
+                        auditlogService:
+                          properties:
+                            secretData:
+                              pattern: "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$"
+                              type: string
+                            secretName:
+                              type: string
+                          required:
+                            - secretName
+                          type: object
+                        connectivityService:
+                          default:
+                            secretName: connectivity-proxy-service-key
+                          properties:
+                            secretData:
+                              pattern: "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$"
+                              type: string
+                            secretName:
+                              default: connectivity-proxy-service-key
+                              type: string
+                          required:
+                            - secretName
+                          type: object
+                      required:
+                        - connectivityService
+                      type: object
+                  required:
+                    - integration
+                  type: object
+              required:
+                - config
+                - deployment
+                - ingress
+                - secretConfig
+              type: object
+            status:
+              properties:
+                observedGeneration:
+                  type: integer
+                state:
+                  type: string
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "connectivity-proxy-operator"
+  namespace: kyma-system
+spec:
+  selector:
+    matchLabels:
+      app: "connectivity-proxy-operator"
+  template:
+    metadata:
+      labels:
+        app: "connectivity-proxy-operator"
+    spec:
+      serviceAccountName: "connectivity-proxy-operator"
+      imagePullSecrets:
+        - name: "commons-artifactory-pull-secret"
+      initContainers:
+        - name: init-migrator
+          image: europe-docker.pkg.dev/kyma-project/dev/cp-mod-migrator:PR-12
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
+        - name: init-cleaner
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-cleaner:latest
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
+      containers:
+        - name: "connectivity-proxy-operator"
+          image: "connectivity.common.repositories.cloud.sap/chuchulski/test-proxy-operator:test"
+          imagePullPolicy: "Always"
+          env:
+            - name: START_APPLICATION
+              value: "proxy-operator"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256M"
+            limits:
+              cpu: "1"
+              memory: "1024M"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 3
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "connectivity-proxy-operator"
+  namespace: "kyma-system"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "connectivity-proxy-operator-rbac"
+rules:
+  # CRD definitions
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["*"]
+  # Connectivity Proxy custom resource
+  - apiGroups: ["connectivityproxy.sap.com"]
+    resources: ["connectivityproxies", "connectivityproxies/status"]
+    verbs: ["*"]
+  # main workload resources
+  - apiGroups: [""]
+    resources: ["deployments", "statefulsets", "services", "configmaps", "secrets"]
+    verbs: ["*"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "services", "configmaps", "secrets"]
+    verbs: ["*"]
+  # ServiceAccounts
+  - apiGroups: [""]
+    resources: ["serviceaccounts"]
+    verbs: ["*"]
+  # RBAC resources
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "clusterroles", "rolebindings", "clusterrolebindings"]
+    verbs: ["*"]
+  # Istio resources
+  - apiGroups: ["networking.istio.io"]
+    resources: ["gateways", "virtualservices", "destinationrules"]
+    verbs: ["*"]
+  - apiGroups: ["security.istio.io"]
+    resources: ["peerauthentications"]
+    verbs: ["*"]
+  # SM resources
+  - apiGroups: ["connectivityproxy.sap.com"]
+    resources: ["servicemappings", "servicemappings/status"]
+    verbs: ["*"]
+  - apiGroups: ["admissionregistration.k8s.io"]
+    resources: ["validatingwebhookconfigurations"]
+    verbs: ["*"]
+  # SAP BTP Operator resources
+  - apiGroups: ["services.cloud.sap.com"]
+    resources: ["serviceinstances", "servicebindings"]
+    verbs: ["*"]
+  # Gardener Cert Management resources
+  - apiGroups: ["cert.gardener.cloud"]
+    resources: ["certificates"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: "connectivity-proxy-operator-rbac"
+subjects:
+  - kind: ServiceAccount
+    name: "connectivity-proxy-operator"
+    namespace: "kyma-system"
+roleRef:
+  kind: ClusterRole
+  name: "connectivity-proxy-operator-rbac"
+  apiGroup: rbac.authorization.k8s.io

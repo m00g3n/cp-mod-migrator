@@ -1,4 +1,4 @@
-package v294
+package v211
 
 // TODO: Rename the package to the exact version (2.11)
 
@@ -40,7 +40,7 @@ const (
 type Config struct {
 	HighAvailabilityMode HighAvailabilityMode `json:"highAvailabilityMode"`
 	Integration          Integration          `json:"integration"`
-	ConnectivityService  ConnectivityService  `json:"connectivityService,omitempty"`
+	ConnectivityService  ConnectivityService  `json:"connectivityService"`
 	MultiRegionMode      MultiRegionMode      `json:"multiRegionMode"`
 	Servers              Servers              `json:"servers"`
 	SubaccountID         string               `json:"subaccountId"`
@@ -58,16 +58,16 @@ type Spec struct {
 
 type AuditLog struct {
 	Mode                  AuditLogMode `json:"mode"`
-	ServiceCredentialsKey string       `json:"serviceCredentialsKey,omitempty"`
+	ServiceCredentialsKey *string      `json:"serviceCredentialsKey,omitempty"`
 }
 
 type ConnectivityService struct {
-	ServiceCredentialsKey string `json:"serviceCredentialsKey,omitempty"`
+	ServiceCredentialsKey string `json:"serviceCredentialsKey"`
 }
 
 type Integration struct {
-	AuditLog            AuditLog            `json:"auditlog"`
-	ConnectivityService ConnectivityService `json:"connectivityService,omitempty"`
+	AuditLog            AuditLog             `json:"auditlog"`
+	ConnectivityService *ConnectivityService `json:"connectivityService,omitempty"`
 }
 
 //+kubebuilder:object:root=true
@@ -97,8 +97,8 @@ func (c *ConnectivityProxy) Encode() (string, error) {
 }
 
 type MultiRegionMode struct {
-	ConfigMapName string `json:"configMapName,omitempty"`
-	Enabled       bool   `json:"enabled"`
+	ConfigMapName *string `json:"configMapName,omitempty"`
+	Enabled       bool    `json:"enabled"`
 }
 
 type Servers struct {
@@ -107,10 +107,10 @@ type Servers struct {
 }
 
 type Proxy struct {
-	Authorization Authorization `json:"authorization"`
-	HTTP          HTTP          `json:"http"`
-	RfcAndLdap    RfcAndLdap    `json:"rfcAndLdap"`
-	Socks5        Socks5        `json:"socks5"`
+	Authorization *Authorization `json:"authorization,omitempty"`
+	HTTP          ProxyCfg       `json:"http"`
+	RfcAndLdap    ProxyCfg       `json:"rfcAndLdap"`
+	Socks5        ProxyCfg       `json:"socks5"`
 }
 
 type Authorization struct {
@@ -127,15 +127,11 @@ type BusinessDataTunnel struct {
 }
 
 type ProxyCfg struct {
-	Enabled                  bool `json:"enabled"`
-	AllowRemoteConnection    bool `json:"allowRemoteConnections"`
-	EnableProxyAuthorization bool `json:"enableProxyAuthorization"`
-	Port                     int  `json:"port"`
+	Enabled                  bool  `json:"enabled"`
+	AllowRemoteConnection    *bool `json:"allowRemoteConnections,omitempty"`
+	EnableProxyAuthorization bool  `json:"enableProxyAuthorization"`
+	Port                     int   `json:"port"`
 }
-
-//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name HTTP -port-number 2003
-//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name Socks5 -port-number 2004
-//go:generate go run ../../../../cmd/generators/proxy-conf-type-gen/main.go -type-name RfcAndLdap -port-number 2001
 
 type ServiceChannels struct {
 	Enabled bool `json:"enabled"`
@@ -153,7 +149,7 @@ type Ingress struct {
 	ClassName ClassType  `json:"className"`
 	Tls       IngressTls `json:"tls"`
 	Timeouts  Timeouts   `json:"timeouts"`
-	Istio     Istio      `json:"istio"`
+	Istio     *Istio     `json:"istio,omitempty"`
 }
 
 type ClassType string
@@ -200,13 +196,13 @@ type SecretConfig struct {
 }
 
 type SecretConfigIntegration struct {
-	ConnectivityService ServiceSecretConfig `json:"connectivityService"`
-	AuditLogService     ServiceSecretConfig `json:"auditlogService"`
+	ConnectivityService ServiceSecretConfig  `json:"connectivityService"`
+	AuditLogService     *ServiceSecretConfig `json:"auditlogService,omitempty"`
 }
 
 type ServiceSecretConfig struct {
-	SecretName string `json:"secretName"`
-	SecretData string `json:"secretData,omitempty"`
+	SecretName string  `json:"secretName"`
+	SecretData *string `json:"secretData,omitempty"`
 }
 
 // Migrated - checks for annotation to verify if the CR has been migrated
