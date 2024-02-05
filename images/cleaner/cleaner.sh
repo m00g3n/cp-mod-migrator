@@ -6,24 +6,24 @@ set -x
 echo "Running Connectivity Proxy Cleanup script"
 
 echo "Checking if Connectivity Proxy CRD exists on the cluster"
-if ! kubectl get crd connectivityproxy.sap.com &> /dev/null; then
+if ! kubectl get crd connectivityproxies.connectivityproxy.sap.com &> /dev/null; then
   echo "Connectivity Proxy CRD does not exist on the cluster - exiting"
   exit 0
 fi
 
-if ! kubectl get connectivityproxy.sap.com connectivity-proxy &> /dev/null; then
+if ! kubectl get connectivityproxies.connectivityproxy.sap.com -n kyma-system connectivity-proxy &> /dev/null; then
    echo "Connectivity Proxy CR is missing on the cluster - exiting"
   exit 0
 fi
 
 echo "Connectivity Proxy CR detected... checking annotations"
 
-if ! kubectl get connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/migrated}' | grep -q "true"; then
-  echo "Connectivity Proxy CR is annotated as not migrated - exiting"
+if ! kubectl get connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/migrated}' | grep -q "true"; then
+  echo "Connectivity Proxy CR is not annotated as migrated - exiting"
   exit 0
 fi
 
-if kubectl get connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/cleaned}' | grep -q "true"; then
+if kubectl get connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/cleaned}' | grep -q "true"; then
   echo "Connectivity Proxy CR is already annotated as cleaned up after migration - exiting"
   exit 0
 fi
@@ -98,7 +98,7 @@ echo "Removing Secrets"
 kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --ignore-not-found
 
 echo "Removing PriorityClass resources"
-kubectl delete priorityclass -n kyma-system connectivity-proxy-priority-class --ignore-not-found
+kubectl delete priorityclass connectivity-proxy-priority-class --ignore-not-found
 
 echo "Annotate CR that clean up is completed after migration"
-kubectl annotate connectivityproxy.sap.com connectivity-proxy -n kyma-system annotations.connectivityproxy\.sap\.com/cleaned="true"
+kubectl annotate connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system connectivityproxy\.sap\.com/cleaned="true"
