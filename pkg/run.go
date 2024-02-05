@@ -54,7 +54,7 @@ func Run(ctx context.Context, getClient getClient, dryRun []string) error {
 	if cp.Annotations == nil {
 		cp.Annotations = map[string]string{}
 	}
-	cp.Annotations[v211.CProxyMigratedAnnotation] = ""
+	cp.Annotations[v211.CProxyMigratedAnnotation] = "true"
 	data, err := cp.Encode()
 	if err != nil {
 		return err
