@@ -574,6 +574,14 @@ rules:
   - apiGroups: [""]
     resources: ["serviceaccounts"]
     verbs: ["*"]
+  # Namespaces
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["*"]
+  # Priorityclasses
+  - apiGroups: ["scheduling.k8s.io"]
+    resources: ["priorityclasses"]
+    verbs: ["*"]
   # RBAC resources
   - apiGroups: ["rbac.authorization.k8s.io"]
     resources: ["roles", "clusterroles", "rolebindings", "clusterrolebindings"]
