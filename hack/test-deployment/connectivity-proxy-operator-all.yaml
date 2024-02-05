@@ -508,7 +508,12 @@ spec:
         - name: "commons-artifactory-pull-secret"
       initContainers:
         - name: init-migrator
-          image: europe-docker.pkg.dev/kyma-project/dev/cp-mod-migrator:PR-12
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-migrator:latest
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
+        - name: init-backup
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-backup:latest
           imagePullPolicy: Always
           securityContext:
             runAsUser: 1337

@@ -1,30 +1,58 @@
 #!/bin/sh
 
 set -e
+set -x
 
 echo "Running Connectivity Proxy Cleanup script"
 
-# check if statefulset connectivity-proxy does not exist and if so, exit  with 0
-if ! kubectl get statefulset -n kyma-system connectivity-proxy &> /dev/null; then
-  echo "Connectivity Proxy does not exist, exiting"
+echo "Checking if Connectivity Proxy CRD exists on the cluster"
+if ! kubectl get crd connectivityproxies.connectivityproxy.sap.com &> /dev/null; then
+  echo "Connectivity Proxy CRD does not exist on the cluster - exiting"
   exit 0
 fi
 
-echo "Connectivity Proxy is installed"
+if ! kubectl get connectivityproxies.connectivityproxy.sap.com -n kyma-system connectivity-proxy &> /dev/null; then
+   echo "Connectivity Proxy CR is missing on the cluster - exiting"
+  exit 0
+fi
 
-echo "Annotate all existing Connectivity Proxy Service Mappings"
+echo "Connectivity Proxy CR detected... checking annotations"
 
-mappings=$(kubectl get servicemappings.connectivityproxy.sap.com -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
+if ! kubectl get connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/migrated}' | grep -q "true"; then
+  echo "Connectivity Proxy CR is not annotated as migrated - exiting"
+  exit 0
+fi
 
-for mapping in $mappings; do
+if kubectl get connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/cleaned}' | grep -q "true"; then
+  echo "Connectivity Proxy CR is already annotated as cleaned up after migration - exiting"
+  exit 0
+fi
 
-  echo "Applying annotations to service mapping $mapping"
+echo "Connectivity Proxy CR is marked as successfully migrated and ready for cleanup"
 
-  kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
-    io.javaoperatorsdk/primary-name=connectivity-proxy \
-    io.javaoperatorsdk/primary-namespace=kyma-system \
+if kubectl get crd servicemappings.connectivityproxy.sap.com &> /dev/null; then
+  echo "CRD servicemappings.connectivityproxy.sap.com exists on the cluster"
+  echo "Annotate all existing Connectivity Proxy Service Mappings instances"
 
-done
+  mappings=$(kubectl get servicemappings.connectivityproxy.sap.com --ignore-not-found -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
+
+  for mapping in $mappings; do
+
+    echo "Applying annotations to service mapping $mapping"
+
+    kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
+      io.javaoperatorsdk/primary-name=connectivity-proxy \
+      io.javaoperatorsdk/primary-namespace=kyma-system
+
+  done
+
+  echo "Applying annotations to service mapping CRD"
+
+  kubectl annotate crd servicemappings.connectivityproxy.sap.com \
+     io.javaoperatorsdk/primary-name=connectivity-proxy \
+     io.javaoperatorsdk/primary-namespace=kyma-system
+
+fi
 
 echo "Removing Deployments, and Statefulsets"
 
@@ -50,14 +78,14 @@ kubectl delete clusterrolebinding connectivity-proxy-service-mappings --ignore-n
 kubectl delete clusterrole connectivity-proxy-service-mappings --ignore-not-found
 kubectl delete serviceaccount -n kyma-system connectivity-proxy-sm-operator --ignore-not-found
 
-echo "Removing Webhooks"
-kubectl delete mutatingwebhookconfiguration connectivity-proxy-mutating-webhook-configuration --ignore-not-found
+echo "Removing Webhook"
 kubectl delete validatingwebhookconfiguration webhook-secret --ignore-not-found
 
 echo "Removing Config Maps"
 
 kubectl delete configmap -n kyma-system connectivity-proxy --ignore-not-found
 kubectl delete configmap -n kyma-system connectivity-proxy-info --ignore-not-found
+kubectl delete configmap -n kyma-system connectivity-proxy-service-mappings --ignore-not-found
 
 echo "Removing Istio resources"
 
@@ -77,4 +105,7 @@ echo "Removing Secrets"
 kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --ignore-not-found
 
 echo "Removing PriorityClass resources"
-kubectl delete priorityclass -n kyma-system connectivity-proxy-priority-class --ignore-not-found
+kubectl delete priorityclass connectivity-proxy-priority-class --ignore-not-found
+
+echo "Annotate CR that clean up is completed after migration"
+kubectl annotate connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system connectivityproxy\.sap\.com/cleaned="true"
