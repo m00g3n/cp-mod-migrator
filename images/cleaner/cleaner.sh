@@ -42,9 +42,16 @@ if kubectl get crd servicemappings.connectivityproxy.sap.com &> /dev/null; then
 
     kubectl annotate servicemappings.connectivityproxy.sap.com "$mapping" \
       io.javaoperatorsdk/primary-name=connectivity-proxy \
-      io.javaoperatorsdk/primary-namespace=kyma-system \
+      io.javaoperatorsdk/primary-namespace=kyma-system
 
   done
+
+  echo "Applying annotations to service mapping CRD"
+
+  kubectl annotate crd servicemappings.connectivityproxy.sap.com \
+     io.javaoperatorsdk/primary-name=connectivity-proxy \
+     io.javaoperatorsdk/primary-namespace=kyma-system
+
 fi
 
 echo "Removing Deployments, and Statefulsets"

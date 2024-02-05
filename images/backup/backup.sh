@@ -2,6 +2,7 @@
 
 #Backups connectivity-proxy, and connectivity-proxy-info config map.
 set -e
+set -x
 
 BACKUP_NS=connectivity-proxy-backup
 
@@ -32,6 +33,8 @@ if ! kubectl get namespace $BACKUP_NS &> /dev/null; then
   echo "Namespace $BACKUP_NS does not exist, creating it"
   kubectl create namespace $BACKUP_NS
 fi
+
+echo "Removing old backup config maps if exist"
 
 #ensure that old backup is deleted before creating a new one
 kubectl delete cm -n $BACKUP_NS connectivity-proxy --ignore-not-found
