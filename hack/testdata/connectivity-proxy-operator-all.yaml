@@ -575,7 +575,7 @@ rules:
     verbs: ["*"]
   # Istio resources
   - apiGroups: ["networking.istio.io"]
-    resources: ["gateways", "virtualservices", "destinationrules"]
+    resources: ["gateways", "virtualservices", "destinationrules", "envoyfilters"]
     verbs: ["*"]
   - apiGroups: ["security.istio.io"]
     resources: ["peerauthentications"]
