@@ -91,7 +91,7 @@ var _ = Describe("cp-mod-migrator", Ordered, func() {
 		// fetch created CR
 		key := client.ObjectKey{Name: "connectivity-proxy", Namespace: "kyma-system"}
 		Expect(k8sClient.Get(ctx, key, &cr)).ShouldNot(HaveOccurred())
-		Expect(cr.Annotations).Should(HaveKeyWithValue(v211.CProxyMigratedAnnotation, ""))
+		Expect(cr.Annotations).Should(HaveKeyWithValue(v211.CProxyMigratedAnnotation, "true"))
 		// clean up
 		deleteObjs(ctx, cmCopy, cmInfoCopy, sSetCopy, &cr)
 	})
