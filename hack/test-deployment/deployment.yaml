@@ -15,13 +15,13 @@ spec:
     spec:
       serviceAccountName: cleaner-admin-sa
       initContainers:
-        - name: init-backup
-          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-backup:latest
+        - name: init-migrator
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-migrator:latest
           imagePullPolicy: Always
           securityContext:
             runAsUser: 1337
-        - name: init-migrator
-          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-migrator:latest
+        - name: init-backup
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-backup:latest
           imagePullPolicy: Always
           securityContext:
             runAsUser: 1337
