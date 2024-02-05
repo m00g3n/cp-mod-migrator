@@ -7,6 +7,25 @@ BACKUP_NS=connectivity-proxy-backup
 
 echo "Running Connectivity Proxy user configuration backup script"
 
+echo "Checking if Connectivity Proxy CRD exists on the cluster"
+if ! kubectl get crd connectivityproxies.connectivityproxy.sap.com &> /dev/null; then
+  echo "Connectivity Proxy CRD does not exist on the cluster - exiting"
+  exit 0
+fi
+
+if ! kubectl get connectivityproxies.connectivityproxy.sap.com -n kyma-system connectivity-proxy &> /dev/null; then
+   echo "Connectivity Proxy CR is missing on the cluster - exiting"
+  exit 0
+fi
+
+echo "Connectivity Proxy CR detected... checking backup annotation"
+
+if kubectl get connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system -o jsonpath='{.metadata.annotations.connectivityproxy\.sap\.com/backed-up}' | grep -q "true"; then
+  echo "Connectivity Proxy CR is already annotated as backed up before migration - exiting"
+  exit 0
+fi
+
+
 echo "Checking if source config maps for backup exist"
 #check if connectivity-proxy and connectivity-proxy-info config maps exists in namespace kyma-system and if not, exit with 0
 if ! kubectl get cm -n kyma-system connectivity-proxy &> /dev/null; then
@@ -36,5 +55,7 @@ echo "Copying Connectivity Proxy config maps with user configuration to target b
 kubectl get cm -n kyma-system connectivity-proxy -o yaml | sed s/"namespace: kyma-system"/"namespace: $BACKUP_NS"/ | kubectl apply -f -
 kubectl get cm -n kyma-system connectivity-proxy-info -o yaml | sed s/"namespace: kyma-system"/"namespace: $BACKUP_NS"/ | kubectl apply -f -
 
+echo "Annotate CR that backup is completed after migration"
+kubectl annotate connectivityproxies.connectivityproxy.sap.com connectivity-proxy -n kyma-system connectivityproxy\.sap\.com/backed-up="true"
 
 echo "Connectivity Proxy Backup script completed successfully"
