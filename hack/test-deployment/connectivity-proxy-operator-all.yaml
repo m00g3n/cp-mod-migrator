@@ -489,61 +489,6 @@ spec:
       subresources:
         status: {}
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: "connectivity-proxy-operator"
-  namespace: kyma-system
-spec:
-  selector:
-    matchLabels:
-      app: "connectivity-proxy-operator"
-  template:
-    metadata:
-      labels:
-        app: "connectivity-proxy-operator"
-    spec:
-      serviceAccountName: "connectivity-proxy-operator"
-      imagePullSecrets:
-        - name: "commons-artifactory-pull-secret"
-      initContainers:
-        - name: init-migrator
-          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-migrator:latest
-          imagePullPolicy: Always
-          securityContext:
-            runAsUser: 1337
-        - name: init-backup
-          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-backup:latest
-          imagePullPolicy: Always
-          securityContext:
-            runAsUser: 1337
-        - name: init-cleaner
-          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-cleaner:latest
-          imagePullPolicy: Always
-          securityContext:
-            runAsUser: 1337
-      containers:
-        - name: "connectivity-proxy-operator"
-          image: "connectivity.common.repositories.cloud.sap/chuchulski/test-proxy-operator:test"
-          imagePullPolicy: "Always"
-          env:
-            - name: START_APPLICATION
-              value: "proxy-operator"
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "256M"
-            limits:
-              cpu: "1"
-              memory: "1024M"
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 30
-            timeoutSeconds: 3
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -621,3 +566,58 @@ roleRef:
   kind: ClusterRole
   name: "connectivity-proxy-operator-rbac"
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "connectivity-proxy-operator"
+  namespace: kyma-system
+spec:
+  selector:
+    matchLabels:
+      app: "connectivity-proxy-operator"
+  template:
+    metadata:
+      labels:
+        app: "connectivity-proxy-operator"
+    spec:
+      serviceAccountName: "connectivity-proxy-operator"
+      imagePullSecrets:
+        - name: "commons-artifactory-pull-secret"
+      initContainers:
+        - name: init-migrator
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-migrator:latest
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
+        - name: init-backup
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-backup:latest
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
+        - name: init-cleaner
+          image: europe-docker.pkg.dev/kyma-project/prod/cp-mod-cleaner:latest
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1337
+      containers:
+        - name: "connectivity-proxy-operator"
+          image: "connectivity.common.repositories.cloud.sap/chuchulski/test-proxy-operator:test"
+          imagePullPolicy: "Always"
+          env:
+            - name: START_APPLICATION
+              value: "proxy-operator"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256M"
+            limits:
+              cpu: "1"
+              memory: "1024M"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 3
