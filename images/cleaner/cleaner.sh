@@ -97,10 +97,11 @@ kubectl delete destinationrule -n kyma-system connectivity-proxy-tunnel-0 --igno
 kubectl delete destinationrule -n kyma-system connectivity-proxy --ignore-not-found
 kubectl delete peerauthentication -n kyma-system enable-permissive-mode-for-cp --ignore-not-found
 kubectl delete certificate -n istio-system cc-certs --ignore-not-found
-kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
+
 
 echo "Removing Secrets"
-
+kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
+kubectl delete secret -n istio-system cc-certs --ignore-not-found
 kubectl delete secret -n kyma-system connectivity-proxy-service-key --ignore-not-found
 kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --ignore-not-found
 
