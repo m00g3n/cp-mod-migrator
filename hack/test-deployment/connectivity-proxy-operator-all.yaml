@@ -522,7 +522,7 @@ rules:
   # Namespaces
   - apiGroups: [""]
     resources: ["namespaces"]
-    verbs: ["*"]
+    verbs: ["create, list", "get"]
   # Priorityclasses
   - apiGroups: ["scheduling.k8s.io"]
     resources: ["priorityclasses"]
