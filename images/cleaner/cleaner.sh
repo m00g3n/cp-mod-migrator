@@ -102,7 +102,6 @@ kubectl delete certificate -n istio-system cc-certs --ignore-not-found
 echo "Removing Secrets"
 kubectl delete secret -n istio-system cc-certs-cacert --ignore-not-found
 kubectl delete secret -n istio-system cc-certs --ignore-not-found
-kubectl delete secret -n kyma-system connectivity-proxy-service-key --ignore-not-found
 kubectl delete secret -n kyma-system connectivity-sm-operator-secrets-tls --ignore-not-found
 
 echo "Removing PriorityClass resources"
